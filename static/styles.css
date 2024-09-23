@@ -1,0 +1,117 @@
+/* Reset margins and paddings */
+body, h1, p, ul {
+    margin: 0;
+    padding: 0;
+}
+
+/* Body Styling */
+body {
+    font-family: 'Apple Garamond', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    background-color: #f4f4f4;
+    color: #333;
+    display: flex;
+    flex-direction: column; /* Change to column for vertical layout of content */
+    margin: 5%;
+}
+
+/* Wrapper to center the content */
+.container {
+    max-width: 1200px;
+    width: 100%;
+    padding: 40px;
+    margin: 0 auto;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    background-color: #ffffff;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column; /* Keep the main content in column layout */
+}
+
+/* Horizontal Navbar */
+nav {
+    background: #f9f9f9;
+    color: #333;
+    width: 100%;
+    padding: 10px 20px;
+    border-bottom: 1px solid #e0e0e0;
+    display: flex; /* Use flex for horizontal layout */
+    justify-content: space-between; /* Space out links */
+}
+
+/* Navbar list */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex; /* Align list items horizontally */
+}
+
+nav ul li {
+    margin-right: 20px; /* Space between navbar items */
+}
+
+/* Navbar links */
+nav ul a {
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    transition: color 0.3s ease;
+}
+
+nav ul a:hover {
+    color: #007aff; /* Apple's signature blue */
+}
+
+/* Main content below the navbar */
+.main-content {
+    flex-grow: 1;
+    padding: 40px;
+    background-color: #ffffff;
+    border-radius: 12px;
+}
+
+/* H1 Styling - On Top */
+h1 {
+    text-align: center;
+    margin: 20px 0;
+    color: #35424a;
+    font-weight: 400;
+}
+
+/* Paragraphs */
+p {
+    margin-bottom: 20px;
+    font-size: 16px; /* Slightly smaller text to fit with the images */
+}
+
+/* Centered images with max-width 400px */
+img {
+    max-width: 400px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 12px;
+    display: block;
+    margin: 0 auto 20px auto;
+}
+
+/* Horizontal line styling */
+hr {
+    margin: 20px 0;
+    border: 1px solid #e0e0e0;
+}
+
+/* Footer styling */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 20px;
+}
+
+/* Add some spacing for better readability */
+.main-content h1, .main-content p, .main-content img {
+    max-width: 800px;
+    margin: 0 auto;
+}

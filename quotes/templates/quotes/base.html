@@ -1,0 +1,24 @@
+{% load static %}
+<html>
+    <head>
+        <title>Jolly Roger</title>
+        <!-- <link rel="stylesheet" href="/static/styles.css"> -->
+        <link rel="stylesheet" href="{% static 'styles.css' %}">
+    </head>
+    <body>
+
+    <nav>
+        <ul>
+            <a href="{% url 'quote' %}">Quote of the day</a>
+            <a href="{% url 'about' %}">About</a>
+            <a href="{% url 'show_all' %}">Show All</a>
+        </ul>
+    </nav>
+
+    {% block content %}
+    {% endblock %}
+
+    <hr>
+    Programmed by Martin Herguedas
+    </body>
+</html>
