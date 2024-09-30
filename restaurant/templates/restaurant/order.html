@@ -1,0 +1,79 @@
+{% extends 'restaurant/base.html' %}
+
+{% block title %}Place Your Order{% endblock %}
+
+{% block content %}
+<h2>Online Order Form</h2>
+<form method="post" action="{% url 'confirmation' %}">
+    {% csrf_token %}
+
+    <fieldset>
+        <legend>Menu Items</legend>
+        
+        <!-- Pizza item with conditional toppings -->
+        <div class="menu-item">
+            <input type="checkbox" id="Pizza" name="Pizza" value="on" onclick="toggleToppings()">
+            <label for="Pizza">Pizza - ${{ menu_items.Pizza }}</label>
+        </div>
+
+        <!-- Toppings (initially hidden) -->
+        <div id="toppings" style="display: none; margin-left: 20px;">
+            <label for="topping">Choose a topping:</label>
+            <select name="topping" id="topping">
+                <option value="Pepperoni">Pepperoni</option>
+                <option value="Mushrooms">Mushrooms</option>
+                <option value="Onions">Onions</option>
+            </select>
+        </div>
+
+        {% for item, price in menu_items.items %}
+            {% if item != "Pizza" %}
+                <div class="menu-item">
+                    <input type="checkbox" id="{{ item }}" name="{{ item }}" value="on">
+                    <label for="{{ item }}">{{ item }} - ${{ price }}</label>
+                </div>
+            {% endif %}
+        {% endfor %}
+        
+        <!-- Daily Special -->
+        <div class="menu-item">
+            <input type="checkbox" id="daily_special" name="daily_special_checkbox" value="on">
+            <label for="daily_special">Daily Special: {{ daily_special.name }} - ${{ daily_special.price|default:"0.00" }}</label>
+            <input type="hidden" name="daily_special" value="{{ daily_special.name }}">
+            <input type="hidden" name="daily_special_price" value="{{ daily_special.price|default:"0.00" }}">
+        </div>
+    </fieldset>
+
+    <fieldset>
+        <legend>Customer Information</legend>
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name"><br>
+
+        <label for="phone">Phone:</label>
+        <input type="text" id="phone" name="phone"><br>
+
+        <label for="email">Email:</label>
+        <input type="text" id="email" name="email"><br>
+    </fieldset>
+
+    <fieldset>
+        <legend>Special Instructions</legend>
+        <textarea id="instructions" name="instructions" rows="4" cols="50"></textarea>
+    </fieldset>
+
+    <button type="submit">Submit Order</button>
+</form>
+
+<!-- JavaScript to toggle the toppings -->
+<script>
+    function toggleToppings() {
+        const pizzaCheckbox = document.getElementById('Pizza');
+        const toppingsDiv = document.getElementById('toppings');
+        if (pizzaCheckbox.checked) {
+            toppingsDiv.style.display = 'block';  // Show toppings
+        } else {
+            toppingsDiv.style.display = 'none';   // Hide toppings
+        }
+    }
+</script>
+{% endblock %}

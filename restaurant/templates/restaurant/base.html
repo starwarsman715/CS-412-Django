@@ -1,0 +1,20 @@
+{% load static %}
+<html>
+    <head>
+        <title>Tony's pizza</title>
+        <!-- <link rel="stylesheet" href="/static/styles_2.css"> -->
+        <link rel="stylesheet" href="{% static 'styles_2.css' %}">
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <a href="{% url 'main' %}">Home</a>
+                <a href="{% url 'order' %}">Place order</a>
+            </ul>
+        </nav>
+        
+        {% block content %}
+        {% endblock %}
+        
+    </body>
+</html>
