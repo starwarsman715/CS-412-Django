@@ -1,0 +1,69 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4; /* Light gray background */
+    margin: 0;
+    padding: 0;
+}
+
+/* Header */
+header {
+    background-color: #731515; /* Waystar Red */
+    color: #ffffff;
+    padding: 20px;
+    text-align: center;
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+/* Profiles Table */
+.profiles-table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profiles-table th, .profiles-table td {
+    border: 1px solid #dddddd;
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    word-wrap: break-word; /* Allow long words to break */
+    white-space: normal;
+}
+
+.profiles-table th {
+    background-color: #3060ac; /* Waystar Medium Blue */
+    color: #ffffff;
+}
+
+.profiles-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.profiles-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Profile Image */
+.profile-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover; 
+    border-radius: 5%;
+}
+
+/* Footer */
+footer {
+    background-color: #731515;
+    color: #ffffff;
+    text-align: center;
+    padding: 10px;
+    position: relative;
+    bottom: 0;
+    width: 100%;
+}
