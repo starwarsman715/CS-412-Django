@@ -1,0 +1,49 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<div class="profile-page">
+    <h2 class="text-center">{{ profile.first_name }} {{ profile.last_name }}</h2>
+    <div class="profile-details">
+        <img src="{{ profile.profile_image_url }}" alt="{{ profile.first_name }} {{ profile.last_name }}'s profile image" class="profile-large-image">
+        <table class="profile-table">
+            <tr>
+                <th>First Name</th>
+                <td>{{ profile.first_name }}</td>
+            </tr>
+            <tr>
+                <th>Last Name</th>
+                <td>{{ profile.last_name }}</td>
+            </tr>
+            <tr>
+                <th>City</th>
+                <td>{{ profile.city }}</td>
+            </tr>
+            <tr>
+                <th>Email Address</th>
+                <td>{{ profile.email_address }}</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- Status Messages Section -->
+    <div class="status-messages">
+        <h3>Status Messages</h3>
+        {% if profile.get_status_messages %}
+            <ul class="status-list">
+                {% for status in profile.get_status_messages %}
+                    <li class="status-item">
+                        <p class="status-message">{{ status.message }}</p>
+                        <span class="status-timestamp">{{ status.timestamp|date:"F j, Y, g:i a" }}</span>
+                    </li>
+                {% endfor %}
+            </ul>
+        {% else %}
+            <p>No status messages to display.</p>
+        {% endif %}
+    </div>
+
+    <div class="back-link">
+        <a href="{% url 'show_all_profiles' %}">← Back to All Profiles</a>
+    </div>
+</div>
+{% endblock content %}

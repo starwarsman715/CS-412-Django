@@ -67,3 +67,86 @@ footer {
     bottom: 0;
     width: 100%;
 }
+
+.profile-page {
+    width: 80%;
+    margin: 30px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.profile-details {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.profile-large-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.profile-table th, .profile-table td {
+    border: 1px solid #dddddd;
+    padding: 12px;
+    text-align: left;
+}
+
+.back-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back-link a {
+    text-decoration: none;
+    color: #3060ac; /* Waystar Medium Blue */
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Status Messages Styles */
+.status-messages {
+    margin-top: 30px;
+}
+
+.status-messages h3 {
+    color: #3060ac; /* Waystar Medium Blue */
+    margin-bottom: 15px;
+}
+
+.status-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.status-item {
+    background-color: #f9f9f9;
+    border: 1px solid #dddddd;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+}
+
+.status-message {
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.status-timestamp {
+    font-size: 0.9em;
+    color: #777777;
+}

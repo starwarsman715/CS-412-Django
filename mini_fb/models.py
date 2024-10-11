@@ -1,6 +1,5 @@
 from django.db import models
-
-# Create your models here.
+from django.utils import timezone
 
 class Profile(models.Model):
     '''Encapsulate the idea of a Profile for a user.'''
@@ -15,3 +14,19 @@ class Profile(models.Model):
     def __str__(self):
         '''Return a string representation of this Profile object.'''
         return f'{self.first_name} {self.last_name}'
+
+    def get_status_messages(self):
+        '''Return all status messages related to this profile, ordered by timestamp descending.'''
+        return self.status_messages.all().order_by('-timestamp')
+
+
+class StatusMessage(models.Model):
+    '''Model representing a user's status message.'''
+
+    timestamp = models.DateTimeField(default=timezone.now)
+    message = models.TextField()
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='status_messages')
+
+    def __str__(self):
+        '''Return a string representation of this StatusMessage object.'''
+        return f'{self.profile.first_name} {self.profile.last_name} at {self.timestamp}: {self.message[:20]}...'
