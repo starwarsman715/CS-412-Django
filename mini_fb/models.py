@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse  # Import reverse
 
 class Profile(models.Model):
     '''Encapsulate the idea of a Profile for a user.'''
@@ -18,6 +19,10 @@ class Profile(models.Model):
     def get_status_messages(self):
         '''Return all status messages related to this profile, ordered by timestamp descending.'''
         return self.status_messages.all().order_by('-timestamp')
+
+    def get_absolute_url(self):
+        '''Return the URL to access a particular profile instance.'''
+        return reverse('show_profile', kwargs={'pk': self.pk})
 
 
 class StatusMessage(models.Model):

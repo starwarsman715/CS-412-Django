@@ -150,3 +150,42 @@ footer {
     font-size: 0.9em;
     color: #777777;
 }
+nav {
+    margin-top: 10px;
+}
+
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.nav-links li a {
+    text-decoration: none;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+.nav-links li a:hover {
+    text-decoration: underline;
+}
+
+.post-status-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.post-status-button {
+    background-color: #3060ac;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.post-status-button:hover {
+    background-color: #1e3f7a;
+}
