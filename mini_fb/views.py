@@ -13,7 +13,7 @@ class ShowAllProfilesView(ListView):
 class ShowProfilePageView(DetailView):
     '''Create a subclass of DetailView to display a single profile.'''
     model = Profile  # The model to retrieve data from
-    template_name = 'mini_fb/show_profile_page.html'  # The template to render
+    template_name = 'mini_fb/show_profile.html'  # The template to render
     context_object_name = 'profile'  # The context variable to use in the template
 
 class CreateProfileView(CreateView):
