@@ -3,9 +3,14 @@
 {% block content %}
 <div class="create-status-page">
     <h2 class="text-center">Post a Status Message</h2>
-    <form method="POST">
+    <form method="POST" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
+        <div>
+            <label>Upload Images:</label>
+            <input type="file" name="files" multiple />
+        </div>
+        
         <button type="submit" class="submit-button">Post Status</button>
     </form>
     <div class="back-link">

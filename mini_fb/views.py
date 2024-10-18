@@ -1,6 +1,6 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.views.generic import ListView, DetailView, CreateView
-from .models import Profile, StatusMessage
+from .models import Profile, StatusMessage, Image
 from .forms import CreateProfileForm, CreateStatusMessageForm
 from django.urls import reverse
 
@@ -37,11 +37,30 @@ class CreateStatusMessageView(CreateView):
         return context
 
     def form_valid(self, form):
-        '''Associate the new status message with the correct profile.'''
+        '''Associate the new status message with the correct profile and handle image uploads.'''
+        # Associate the StatusMessage with the Profile
         profile_pk = self.kwargs.get('pk')
         profile = get_object_or_404(Profile, pk=profile_pk)
         form.instance.profile = profile
-        return super().form_valid(form)
+
+        # Save the StatusMessage instance
+        sm = form.save()
+
+        # Retrieve the list of uploaded files
+        files = self.request.FILES.getlist('files')
+        
+        for file in files:
+            try:
+                img = Image(
+                    status_message=sm,
+                    image_file=file
+                )
+                img.save()
+            except Exception as e:
+                print(f"Error saving image '{file.name}': {e}")
+
+        # Redirect to the profile page after processing
+        return redirect('show_profile', pk=sm.profile.pk)
 
     def get_success_url(self):
         '''Redirect to the profile page after successfully posting a status message.'''

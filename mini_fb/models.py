@@ -1,6 +1,6 @@
 from django.db import models
 from django.utils import timezone
-from django.urls import reverse  # Import reverse
+from django.urls import reverse 
 
 class Profile(models.Model):
     '''Encapsulate the idea of a Profile for a user.'''
@@ -23,7 +23,6 @@ class Profile(models.Model):
     def get_absolute_url(self):
         '''Return the URL to access a particular profile instance.'''
         return reverse('show_profile', kwargs={'pk': self.pk})
-
 
 class StatusMessage(models.Model):
     '''Model representing a user's status message.'''
