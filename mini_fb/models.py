@@ -35,3 +35,15 @@ class StatusMessage(models.Model):
     def __str__(self):
         '''Return a string representation of this StatusMessage object.'''
         return f'{self.profile.first_name} {self.profile.last_name} at {self.timestamp}: {self.message[:20]}...'
+    
+    def get_images(self):
+        return self.images.all()
+
+class Image(models.Model):
+    '''Encapsulate the idea of an Image associated with a StatusMessage.'''
+    status_message = models.ForeignKey('StatusMessage', on_delete=models.CASCADE, related_name='images')
+    image_file = models.ImageField(upload_to='images/')
+    uploaded_at = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return f"Image for StatusMessage ID {self.status_message.id} uploaded at {self.uploaded_at}"
