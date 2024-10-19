@@ -25,6 +25,11 @@
         </table>
     </div>
 
+    <!-- Link to Update Profile -->
+    <div class="update-profile-link">
+        <a href="{% url 'update_profile' profile.pk %}" class="update-profile-button">Update Profile</a>
+    </div>
+    
     <!-- Link to Create a New Status Message -->
     <div class="post-status-link">
         <a href="{% url 'create_status' profile.pk %}" class="post-status-button">Post a Status Message</a>

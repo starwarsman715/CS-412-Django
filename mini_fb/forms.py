@@ -38,3 +38,19 @@ class CreateStatusMessageForm(forms.ModelForm):
         labels = {
             'message': 'Your Status',
         }
+
+
+class UpdateProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['city', 'email_address', 'profile_image_url']
+        widgets = {
+            'city': forms.TextInput(attrs={'placeholder': 'City'}),
+            'email_address': forms.EmailInput(attrs={'placeholder': 'Email Address'}),
+            'profile_image_url': forms.URLInput(attrs={'placeholder': 'Profile Image URL'}),
+        }
+        labels = {
+            'city': 'City',
+            'email_address': 'Email Address',
+            'profile_image_url': 'Profile Image URL',
+        }

@@ -150,6 +150,7 @@ footer {
     font-size: 0.9em;
     color: #777777;
 }
+
 nav {
     margin-top: 10px;
 }
@@ -172,6 +173,7 @@ nav {
     text-decoration: underline;
 }
 
+/* Post Status Button */
 .post-status-link {
     margin-top: 20px;
     text-align: center;
@@ -188,4 +190,24 @@ nav {
 
 .post-status-button:hover {
     background-color: #1e3f7a;
+}
+
+/* Update Profile Button */
+.update-profile-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.update-profile-button {
+    background-color: #3060ac; /* Waystar Medium Blue */
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
+}
+
+.update-profile-button:hover {
+    background-color: #1e3f7a; /* Darker shade of blue for hover */
 }

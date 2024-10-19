@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView
 from .models import Profile, StatusMessage, Image
-from .forms import CreateProfileForm, CreateStatusMessageForm
+from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
+
 
 class ShowAllProfilesView(ListView):
     '''Create a subclass of ListView to display all profiles.'''
@@ -65,3 +66,11 @@ class CreateStatusMessageView(CreateView):
     def get_success_url(self):
         '''Redirect to the profile page after successfully posting a status message.'''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+
+class UpdateProfileView(UpdateView):
+    model = Profile
+    form_class = UpdateProfileForm
+    template_name = 'mini_fb/update_profile_form.html'
+
+    def get_success_url(self):
+        return reverse('show_profile', kwargs={'pk': self.object.pk})
