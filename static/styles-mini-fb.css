@@ -211,3 +211,35 @@ nav {
 .update-profile-button:hover {
     background-color: #1e3f7a; /* Darker shade of blue for hover */
 }
+
+/* Links for Update and Delete Buttons */
+.update-status-link,
+.delete-status-link {
+    display: inline-block;
+    padding: 8px 16px;
+    margin: 5px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+/* Update Status Button */
+.update-status-link {
+    background-color: #3060ac; /* Waystar Medium Blue */
+    color: #ffffff;
+}
+
+.update-status-link:hover {
+    background-color: #1e3f7a; /* Darker blue for hover */
+}
+
+/* Delete Status Button */
+.delete-status-link {
+    background-color: #c9302c; /* Danger Red */
+    color: #ffffff;
+}
+
+.delete-status-link:hover {
+    background-color: #a82823; /* Darker red for hover */
+}
