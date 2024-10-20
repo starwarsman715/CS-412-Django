@@ -5,6 +5,8 @@ from .views import (
     CreateProfileView,
     CreateStatusMessageView,
     UpdateProfileView,
+    DeleteStatusMessageView,
+    UpdateStatusMessageView,
 )
 
 urlpatterns = [
@@ -22,4 +24,10 @@ urlpatterns = [
 
     # URL pattern for updating a profile
     path('profile/<int:pk>/update/', UpdateProfileView.as_view(), name='update_profile'),
+
+    # URL pattern for deleting a status message
+    path('status/<int:pk>/delete/', DeleteStatusMessageView.as_view(), name='delete_status'),
+    
+    # URL pattern for updating a status message
+    path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'),
 ]

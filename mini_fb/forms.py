@@ -54,3 +54,18 @@ class UpdateProfileForm(forms.ModelForm):
             'email_address': 'Email Address',
             'profile_image_url': 'Profile Image URL',
         }
+        
+class UpdateStatusMessageForm(forms.ModelForm):
+    class Meta:
+        model = StatusMessage
+        fields = ['message']
+        widgets = {
+            'message': forms.Textarea(attrs={
+                'rows': 3,
+                'cols': 40,
+                'class': 'status-textarea',
+            }),
+        }
+        labels = {
+            'message': 'Update Your Status',
+        }

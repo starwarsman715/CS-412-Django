@@ -49,6 +49,10 @@
                         {% for img in status.get_images %}
                             <img src="{{ img.image_file.url }}" alt="Image for StatusMessage {{ status.id }}" class="status-image">
                         {% endfor %}
+                        
+                        <!-- New Delete Link -->
+                        <a href="{% url 'update_status' status.pk %}" class="update-status-link">update</a>
+                        <a href="{% url 'delete_status' status.pk %}" class="delete-status-link">delete</a>
                     </li>
                 {% endfor %}
             </ul>
