@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Profile, StatusMessage, Image
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from .models import Profile, StatusMessage, Image, Friend
 from .forms import CreateProfileForm, CreateStatusMessageForm, UpdateProfileForm
 from django.urls import reverse
 
@@ -94,3 +94,28 @@ class UpdateStatusMessageView(UpdateView):
     def get_success_url(self):
         '''Redirect to the profile page after successfully updating a status message.'''
         return reverse('show_profile', kwargs={'pk': self.object.profile.pk})
+    
+    
+class CreateFriendView(View):
+    '''Handle the creation of a new friendship between two profiles.'''
+    
+    def dispatch(self, request, *args, **kwargs):
+        # Get the profile IDs from the URL
+        profile_pk = kwargs.get('pk')
+        other_pk = kwargs.get('other_pk')
+        
+        # Get the Profile objects
+        profile = get_object_or_404(Profile, pk=profile_pk)
+        other_profile = get_object_or_404(Profile, pk=other_pk)
+        
+        # Add the friend relationship
+        profile.add_friend(other_profile)
+        
+        # Redirect back to the original profile page
+        return redirect('show_profile', pk=profile_pk)
+
+class ShowFriendSuggestionsView(DetailView):
+    '''Display friend suggestions for a profile.'''
+    model = Profile
+    template_name = 'mini_fb/friend_suggestions.html'
+    context_object_name = 'profile'

@@ -310,3 +310,125 @@ nav {
     border-radius: 5px;
     margin: 10px 0;
 }
+
+/* Friend Suggestions Styles */
+.friend-suggestions-page {
+    width: 80%;
+    margin: 30px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.suggestions-section {
+    margin-top: 20px;
+}
+
+.suggestions-list {
+    list-style: none;
+    padding: 0;
+}
+
+.suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 15px;
+    margin-bottom: 15px;
+    background-color: #f9f9f9;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.suggestion-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.suggestion-thumbnail {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 15px;
+    border: 2px solid #3060ac;
+}
+
+.suggestion-info {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.suggestion-name {
+    font-weight: bold;
+    color: #333333;
+}
+
+.suggestion-city {
+    color: #777777;
+    font-size: 0.9em;
+}
+
+.suggestion-actions {
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+}
+
+.view-profile-link,
+.add-friend-button {
+    padding: 8px 16px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.view-profile-link {
+    background-color: #f0f0f0;
+    color: #333333;
+}
+
+.view-profile-link:hover {
+    background-color: #e0e0e0;
+}
+
+.add-friend-button {
+    background-color: #3060ac;
+    color: #ffffff;
+}
+
+.add-friend-button:hover {
+    background-color: #1e3f7a;
+}
+
+.no-suggestions {
+    text-align: center;
+    color: #777777;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+}
+
+/* Friend Suggestions Link */
+.friend-suggestions-link {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.friend-suggestions-button {
+    background-color: #3060ac;
+    color: #ffffff;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.friend-suggestions-button:hover {
+    background-color: #1e3f7a;
+}

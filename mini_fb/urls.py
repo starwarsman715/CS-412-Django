@@ -7,6 +7,8 @@ from .views import (
     UpdateProfileView,
     DeleteStatusMessageView,
     UpdateStatusMessageView,
+    CreateFriendView,
+    ShowFriendSuggestionsView
 )
 
 urlpatterns = [
@@ -30,4 +32,10 @@ urlpatterns = [
     
     # URL pattern for updating a status message
     path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'),
+    
+    # URL pattern for adding a friend
+    path('profile/<int:pk>/add_friend/<int:other_pk>/', CreateFriendView.as_view(), name='add_friend'),
+    
+    # URL pattern for showing friend suggestions
+    path('profile/<int:pk>/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
 ]

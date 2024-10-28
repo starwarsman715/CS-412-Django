@@ -42,6 +42,37 @@ class Profile(models.Model):
             friend_profiles.append(friendship.profile1)
         
         return friend_profiles
+    
+    def add_friend(self, other):
+        '''Add a friend relationship between this profile and the other profile.'''
+        # Check if profiles are the same (prevent self-friending)
+        if self == other:
+            return False
+        
+        # Check if friendship already exists (in either direction)
+        existing_friendship = Friend.objects.filter(
+            (models.Q(profile1=self, profile2=other) |
+            models.Q(profile1=other, profile2=self))
+        ).exists()
+        
+        # If no existing friendship and not self-friending, create new friendship
+        if not existing_friendship:
+            Friend.objects.create(profile1=self, profile2=other)
+            return True
+        
+        return False
+
+    def get_friend_suggestions(self):
+        '''Return a list of profiles that could be friends.'''
+        # Get all current friends
+        friends = self.get_friends()
+        
+        # Get all profiles except self and current friends
+        suggestions = Profile.objects.exclude(
+            id__in=[friend.id for friend in friends]
+        ).exclude(id=self.id)
+        
+        return suggestions
 
 class StatusMessage(models.Model):
     '''Model representing a user's status message.'''
