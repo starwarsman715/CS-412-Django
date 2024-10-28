@@ -243,3 +243,70 @@ nav {
 .delete-status-link:hover {
     background-color: #a82823; /* Darker red for hover */
 }
+
+/* Friends Section Styles */
+.friends-section {
+    margin-top: 30px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.friends-section h3 {
+    color: #3060ac; /* Waystar Medium Blue */
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+.friends-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.friend-item {
+    background-color: #f9f9f9;
+    border: 1px solid #dddddd;
+    padding: 15px;
+    border-radius: 5px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.friend-item:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.friend-item a {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: #333333;
+}
+
+.friend-item a:hover {
+    color: #3060ac; /* Waystar Medium Blue */
+}
+
+.friend-thumbnail {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 10px;
+    border: 2px solid #3060ac; /* Waystar Medium Blue */
+}
+
+/* When there are no friends */
+.friends-section p {
+    color: #777777;
+    text-align: center;
+    padding: 15px;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    margin: 10px 0;
+}
