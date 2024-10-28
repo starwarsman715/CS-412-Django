@@ -1,0 +1,43 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<div class="news-feed-page">
+    <h2 class="text-center">News Feed for {{ profile.first_name }} {{ profile.last_name }}</h2>
+
+    <div class="news-feed-section">
+        {% with news_feed=profile.get_news_feed %}
+            {% if news_feed %}
+                <ul class="news-feed-list">
+                    {% for status in news_feed %}
+                        <li class="news-feed-item">
+                            <div class="post-header">
+                                {% if status.profile.profile_image_url %}
+                                    <img src="{{ status.profile.profile_image_url }}" alt="{{ status.profile.first_name }}'s profile image" class="post-author-image">
+                                {% endif %}
+                                <div class="post-meta">
+                                    <a href="{% url 'show_profile' status.profile.pk %}" class="post-author-name">
+                                        {{ status.profile.first_name }} {{ status.profile.last_name }}
+                                    </a>
+                                    <span class="post-timestamp">{{ status.timestamp|date:"F j, Y, g:i a" }}</span>
+                                </div>
+                            </div>
+                            <div class="post-content">
+                                <p class="post-message">{{ status.message }}</p>
+                                {% for img in status.get_images %}
+                                    <img src="{{ img.image_file.url }}" alt="Status image" class="post-image">
+                                {% endfor %}
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p class="no-posts">No posts to show in your news feed.</p>
+            {% endif %}
+        {% endwith %}
+    </div>
+
+    <div class="back-link">
+        <a href="{% url 'show_profile' profile.pk %}">← Back to Profile</a>
+    </div>
+</div>
+{% endblock content %}

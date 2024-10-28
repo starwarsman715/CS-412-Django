@@ -8,7 +8,8 @@ from .views import (
     DeleteStatusMessageView,
     UpdateStatusMessageView,
     CreateFriendView,
-    ShowFriendSuggestionsView
+    ShowFriendSuggestionsView,
+    ShowNewsFeedView
 )
 
 urlpatterns = [
@@ -38,4 +39,7 @@ urlpatterns = [
     
     # URL pattern for showing friend suggestions
     path('profile/<int:pk>/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
+    
+    # URL patter for showing news
+    path('profile/<int:pk>/news_feed/', ShowNewsFeedView.as_view(), name='news_feed'),
 ]

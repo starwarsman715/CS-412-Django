@@ -73,6 +73,19 @@ class Profile(models.Model):
         ).exclude(id=self.id)
         
         return suggestions
+    
+    def get_news_feed(self):
+        '''Return all status messages from this profile and its friends, ordered by timestamp.'''
+        # Get list of friends
+        friends = self.get_friends()
+        
+        # Get all status messages from self and friends
+        news_feed = StatusMessage.objects.filter(
+            models.Q(profile=self) |  # Own messages
+            models.Q(profile__in=friends)  # Friends' messages
+        ).order_by('-timestamp')  # Most recent first
+        
+        return news_feed
 
 class StatusMessage(models.Model):
     '''Model representing a user's status message.'''
@@ -106,3 +119,5 @@ class Friend(models.Model):
     def __str__(self):
         '''Return a string representation of this friendship.'''
         return f'{self.profile1.first_name} {self.profile1.last_name} & {self.profile2.first_name} {self.profile2.last_name}'
+    
+    
