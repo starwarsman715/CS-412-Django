@@ -1,0 +1,17 @@
+{% extends 'mini_fb/base.html' %}
+
+{% block content %}
+<div class="logout-container">
+    <h2>Successfully Logged Out</h2>
+    <p>Thank you for using ATN Connect!</p>
+    
+    <div class="logout-actions">
+        <form method="post" action="{% url 'login' %}">
+            {% csrf_token %}
+            <button type="submit" class="login-again-button">Log In Again</button>
+        </form>
+        
+        <a href="{% url 'show_all_profiles' %}" class="home-link">Return to Home</a>
+    </div>
+</div>
+{% endblock %}

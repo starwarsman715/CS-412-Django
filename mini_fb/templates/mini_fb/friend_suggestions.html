@@ -3,7 +3,7 @@
 {% block content %}
 <div class="friend-suggestions-page">
     <h2 class="text-center">Friend Suggestions for {{ profile.first_name }} {{ profile.last_name }}</h2>
-    
+
     <div class="suggestions-section">
         {% with suggestions=profile.get_friend_suggestions %}
             {% if suggestions %}
@@ -13,19 +13,21 @@
                             {% if suggestion.profile_image_url %}
                                 <img src="{{ suggestion.profile_image_url }}" alt="{{ suggestion.first_name }}'s profile image" class="suggestion-thumbnail">
                             {% endif %}
+                            
                             <div class="suggestion-info">
                                 <span class="suggestion-name">{{ suggestion.first_name }} {{ suggestion.last_name }}</span>
                                 <span class="suggestion-city">{{ suggestion.city }}</span>
+                                
                                 <div class="suggestion-actions">
                                     <a href="{% url 'show_profile' suggestion.pk %}" class="view-profile-link">View Profile</a>
-                                    <a href="{% url 'add_friend' profile.pk suggestion.pk %}" class="add-friend-button">Add Friend</a>
+                                    <a href="{% url 'add_friend' other_pk=suggestion.pk %}" class="add-friend-button">Add Friend</a>
                                 </div>
                             </div>
                         </li>
                     {% endfor %}
                 </ul>
             {% else %}
-                <p class="no-suggestions">No suggestions available at this time.</p>
+                <p>No suggestions available at this time.</p>
             {% endif %}
         {% endwith %}
     </div>

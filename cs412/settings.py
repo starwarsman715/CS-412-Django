@@ -133,3 +133,7 @@ MEDIA_URL = '/media/'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+LOGIN_REDIRECT_URL = '/mini_fb/'  # Where to redirect after successful login
+LOGOUT_REDIRECT_URL = '/mini_fb/'  # Where to redirect after logout
+LOGIN_URL = '/mini_fb/login/'     # Where to redirect for login required

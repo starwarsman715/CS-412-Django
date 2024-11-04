@@ -1,4 +1,5 @@
 from django.urls import path
+from django.contrib.auth import views as auth_views
 from .views import (
     ShowAllProfilesView,
     ShowProfilePageView,
@@ -13,33 +14,23 @@ from .views import (
 )
 
 urlpatterns = [
-    # URL pattern for showing all profiles
+    # URLs that don't require login/profile identification
     path('', ShowAllProfilesView.as_view(), name='show_all_profiles'),
-
-    # URL pattern for showing a single profile
     path('profile/<int:pk>/', ShowProfilePageView.as_view(), name='show_profile'),
-
-    # URL pattern for creating a new profile
     path('create_profile/', CreateProfileView.as_view(), name='create_profile'),
-
-    # URL pattern for creating a new status message
-    path('profile/<int:pk>/create_status/', CreateStatusMessageView.as_view(), name='create_status'),
-
-    # URL pattern for updating a profile
-    path('profile/<int:pk>/update/', UpdateProfileView.as_view(), name='update_profile'),
-
-    # URL pattern for deleting a status message
-    path('status/<int:pk>/delete/', DeleteStatusMessageView.as_view(), name='delete_status'),
     
-    # URL pattern for updating a status message
+    # URLs that use the logged-in user's profile (no pk needed)
+    path('profile/update/', UpdateProfileView.as_view(), name='update_profile'),
+    path('profile/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
+    path('profile/news_feed/', ShowNewsFeedView.as_view(), name='news_feed'),
+    path('profile/add_friend/<int:other_pk>/', CreateFriendView.as_view(), name='add_friend'),
+    path('status/create/', CreateStatusMessageView.as_view(), name='create_status'),
+    
+    # Status operations still need pk as they're not directly tied to profile
+    path('status/<int:pk>/delete/', DeleteStatusMessageView.as_view(), name='delete_status'),
     path('status/<int:pk>/update/', UpdateStatusMessageView.as_view(), name='update_status'),
     
-    # URL pattern for adding a friend
-    path('profile/<int:pk>/add_friend/<int:other_pk>/', CreateFriendView.as_view(), name='add_friend'),
-    
-    # URL pattern for showing friend suggestions
-    path('profile/<int:pk>/friend_suggestions/', ShowFriendSuggestionsView.as_view(), name='friend_suggestions'),
-    
-    # URL patter for showing news
-    path('profile/<int:pk>/news_feed/', ShowNewsFeedView.as_view(), name='news_feed'),
+    # Authentication URLs
+    path('login/', auth_views.LoginView.as_view(template_name='mini_fb/login.html'), name='login'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='mini_fb/logged_out.html'), name='logout'),
 ]

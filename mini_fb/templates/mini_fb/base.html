@@ -11,21 +11,33 @@
         <h1>ATN Connect</h1>
         <div class="auth-status">
             {% if user.is_authenticated %}
-                <p>Currently logged in as: {{ user.username }}</p>
+                <p>Currently logged in as: {{ user.username }}
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button">Logout</button>
+                    </form>
+                </p>
             {% else %}
-                <p>Not currently logged in</p>
+                <p>Not currently logged in 
+                    <a href="{% url 'login' %}" class="login-link">Login</a>
+                </p>
             {% endif %}
         </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>
-                <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+                {% if user.is_authenticated %}
+                    {% if user.profile %}
+                        <li><a href="{% url 'show_profile' user.profile.pk %}">My Profile</a></li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{% url 'create_profile' %}">Create Profile</a></li>
+                {% endif %}
             </ul>
         </nav>
     </header>
     <div class="content">
         {% block content %}
-        <!-- Content from child templates will be injected here -->
         {% endblock content %}
     </div>
     <footer>

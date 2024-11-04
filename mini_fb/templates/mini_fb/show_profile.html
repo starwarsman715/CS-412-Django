@@ -26,28 +26,23 @@
     </div>
 
     {% if user.is_authenticated and user == profile.user %}
-        <!-- Link to Update Profile - Only shown to profile owner -->
         <div class="update-profile-link">
-            <a href="{% url 'update_profile' profile.pk %}" class="update-profile-button">Update Profile</a>
+            <a href="{% url 'update_profile' %}" class="update-profile-button">Update Profile</a>
         </div>
         
-        <!-- Link to Create a New Status Message - Only shown to profile owner -->
         <div class="post-status-link">
-            <a href="{% url 'create_status' profile.pk %}" class="post-status-button">Post a Status Message</a>
+            <a href="{% url 'create_status' %}" class="post-status-button">Post a Status Message</a>
         </div>
 
-        <!-- News Feed Link - Only shown to profile owner -->
         <div class="news-feed-link">
-            <a href="{% url 'news_feed' profile.pk %}" class="news-feed-button">View News Feed</a>
+            <a href="{% url 'news_feed' %}" class="news-feed-button">View News Feed</a>
         </div>
 
-        <!-- Friend Suggestions Link - Only shown to profile owner -->
         <div class="friend-suggestions-link">
-            <a href="{% url 'friend_suggestions' profile.pk %}" class="friend-suggestions-button">Find New Friends</a>
+            <a href="{% url 'friend_suggestions' %}" class="friend-suggestions-button">Find New Friends</a>
         </div>
     {% endif %}
 
-    <!-- Friends Section - Visible to everyone -->
     <div class="friends-section">
         <h3>Friends</h3>
         {% with friends=profile.get_friends %}
@@ -70,7 +65,6 @@
         {% endwith %}
     </div>
 
-    <!-- Status Messages Section -->
     <div class="status-messages">
         <h3>Status Messages</h3>
         {% if profile.get_status_messages %}
@@ -80,12 +74,10 @@
                         <p class="status-message">{{ status.message }}</p>
                         <span class="status-timestamp">{{ status.timestamp|date:"F j, Y, g:i a" }}</span>
                         
-                        <!-- Display Images Associated with the StatusMessage -->
                         {% for img in status.get_images %}
                             <img src="{{ img.image_file.url }}" alt="Image for StatusMessage {{ status.id }}" class="status-image">
                         {% endfor %}
                         
-                        <!-- Update/Delete Links - Only shown to profile owner -->
                         {% if user.is_authenticated and user == profile.user %}
                             <a href="{% url 'update_status' status.pk %}" class="update-status-link">update</a>
                             <a href="{% url 'delete_status' status.pk %}" class="delete-status-link">delete</a>

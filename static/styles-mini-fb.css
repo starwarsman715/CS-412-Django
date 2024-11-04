@@ -1,60 +1,89 @@
+/* Base Styles */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f4f4f4; /* Light gray background */
+    background-color: #f4f4f4;
     margin: 0;
     padding: 0;
 }
 
 /* Header */
 header {
-    background-color: #731515; /* Waystar Red */
+    background-color: #731515;
     color: #ffffff;
     padding: 20px;
     text-align: center;
 }
 
-/* Utility Classes */
-.text-center {
-    text-align: center;
+/* Navigation */
+nav {
+    margin-top: 10px;
 }
 
-/* Profiles Table */
-.profiles-table {
-    width: 90%;
-    margin: 20px auto;
-    border-collapse: collapse;
-    background-color: #ffffff;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.nav-links {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 10px 0;
 }
 
-.profiles-table th, .profiles-table td {
-    border: 1px solid #dddddd;
-    padding: 12px;
-    text-align: left;
-    vertical-align: middle;
-    word-wrap: break-word; /* Allow long words to break */
-    white-space: normal;
-}
-
-.profiles-table th {
-    background-color: #3060ac; /* Waystar Medium Blue */
+.nav-links li a {
+    text-decoration: none;
     color: #ffffff;
+    font-weight: bold;
 }
 
-.profiles-table tr:nth-child(even) {
-    background-color: #f9f9f9;
+.nav-links li a:hover {
+    text-decoration: underline;
 }
 
-.profiles-table tr:hover {
-    background-color: #f1f1f1;
+/* Auth Status */
+.auth-status {
+    text-align: right;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
 }
 
-/* Profile Image */
-.profile-image {
-    width: 100px;
-    height: 100px;
-    object-fit: cover; 
-    border-radius: 5%;
+.auth-status p {
+    margin: 0;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+.logout-form {
+    display: inline;
+}
+
+.logout-button {
+    background-color: #dc3545;
+    color: white;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.logout-button:hover {
+    background-color: #c82333;
+}
+
+.login-link {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border: 1px solid #007bff;
+    border-radius: 4px;
+}
+
+.login-link:hover {
+    background-color: #007bff;
+    color: white;
 }
 
 /* Footer */
@@ -68,6 +97,133 @@ footer {
     width: 100%;
 }
 
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+/* Profile Creation and Registration Forms */
+.create-profile-page {
+    width: 80%;
+    max-width: 800px;
+    margin: 30px auto;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+.user-section,
+.profile-section {
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #dddddd;
+    border-radius: 5px;
+    background-color: #f8f9fa;
+}
+
+.user-section h3,
+.profile-section h3 {
+    color: #3060ac;
+    margin: 0 0 15px 0;
+    font-size: 1.2em;
+}
+
+.create-profile-page form p {
+    margin-bottom: 15px;
+}
+
+.create-profile-page form label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+    color: #333333;
+}
+
+.create-profile-page form input[type="text"],
+.create-profile-page form input[type="email"],
+.create-profile-page form input[type="password"] {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #dddddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.create-profile-page .errorlist {
+    color: #dc3545;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+.submit-button {
+    background-color: #3060ac;
+    color: #ffffff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    width: 100%;
+    margin-top: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.submit-button:hover {
+    background-color: #1e3f7a;
+}
+
+/* Profiles Table */
+.profiles-table {
+    width: 90%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profiles-table th,
+.profiles-table td {
+    border: 1px solid #dddddd;
+    padding: 12px;
+    text-align: left;
+    vertical-align: middle;
+    word-wrap: break-word;
+    white-space: normal;
+}
+
+.profiles-table th {
+    background-color: #3060ac;
+    color: #ffffff;
+}
+
+.profiles-table tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+.profiles-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Profile Images */
+.profile-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5%;
+}
+
+.profile-large-image {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border-radius: 10%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Individual Profile Page */
 .profile-page {
     width: 80%;
     margin: 30px auto;
@@ -84,47 +240,54 @@ footer {
     margin-top: 20px;
 }
 
-.profile-large-image {
-    width: 200px;
-    height: 200px;
-    object-fit: cover;
-    border-radius: 10%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
-
 .profile-table {
     width: 100%;
     border-collapse: collapse;
 }
 
-.profile-table th, .profile-table td {
+.profile-table th,
+.profile-table td {
     border: 1px solid #dddddd;
     padding: 12px;
     text-align: left;
 }
 
-.back-link {
+/* Profile Action Buttons */
+.update-profile-link,
+.post-status-link,
+.news-feed-link,
+.friend-suggestions-link {
     margin-top: 20px;
     text-align: center;
 }
 
-.back-link a {
+.update-profile-button,
+.post-status-button,
+.news-feed-button,
+.friend-suggestions-button {
+    background-color: #3060ac;
+    color: #ffffff;
+    padding: 10px 20px;
     text-decoration: none;
-    color: #3060ac; /* Waystar Medium Blue */
+    border-radius: 4px;
     font-weight: bold;
+    transition: background-color 0.3s ease;
 }
 
-.back-link a:hover {
-    text-decoration: underline;
+.update-profile-button:hover,
+.post-status-button:hover,
+.news-feed-button:hover,
+.friend-suggestions-button:hover {
+    background-color: #1e3f7a;
 }
 
-/* Status Messages Styles */
+/* Status Messages */
 .status-messages {
     margin-top: 30px;
 }
 
 .status-messages h3 {
-    color: #3060ac; /* Waystar Medium Blue */
+    color: #3060ac;
     margin-bottom: 15px;
 }
 
@@ -151,68 +314,6 @@ footer {
     color: #777777;
 }
 
-nav {
-    margin-top: 10px;
-}
-
-.nav-links {
-    list-style-type: none;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    gap: 20px;
-}
-
-.nav-links li a {
-    text-decoration: none;
-    color: #ffffff;
-    font-weight: bold;
-}
-
-.nav-links li a:hover {
-    text-decoration: underline;
-}
-
-/* Post Status Button */
-.post-status-link {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.post-status-button {
-    background-color: #3060ac;
-    color: #ffffff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-}
-
-.post-status-button:hover {
-    background-color: #1e3f7a;
-}
-
-/* Update Profile Button */
-.update-profile-link {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.update-profile-button {
-    background-color: #3060ac; /* Waystar Medium Blue */
-    color: #ffffff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.3s ease; /* Smooth transition for hover effect */
-}
-
-.update-profile-button:hover {
-    background-color: #1e3f7a; /* Darker shade of blue for hover */
-}
-
-/* Links for Update and Delete Buttons */
 .update-status-link,
 .delete-status-link {
     display: inline-block;
@@ -224,27 +325,25 @@ nav {
     transition: background-color 0.3s ease;
 }
 
-/* Update Status Button */
 .update-status-link {
-    background-color: #3060ac; /* Waystar Medium Blue */
+    background-color: #3060ac;
     color: #ffffff;
 }
 
 .update-status-link:hover {
-    background-color: #1e3f7a; /* Darker blue for hover */
+    background-color: #1e3f7a;
 }
 
-/* Delete Status Button */
 .delete-status-link {
-    background-color: #c9302c; /* Danger Red */
+    background-color: #c9302c;
     color: #ffffff;
 }
 
 .delete-status-link:hover {
-    background-color: #a82823; /* Darker red for hover */
+    background-color: #a82823;
 }
 
-/* Friends Section Styles */
+/* Friends Section */
 .friends-section {
     margin-top: 30px;
     background-color: #ffffff;
@@ -254,7 +353,7 @@ nav {
 }
 
 .friends-section h3 {
-    color: #3060ac; /* Waystar Medium Blue */
+    color: #3060ac;
     margin-bottom: 15px;
     font-weight: bold;
 }
@@ -289,7 +388,7 @@ nav {
 }
 
 .friend-item a:hover {
-    color: #3060ac; /* Waystar Medium Blue */
+    color: #3060ac;
 }
 
 .friend-thumbnail {
@@ -298,20 +397,10 @@ nav {
     object-fit: cover;
     border-radius: 50%;
     margin-right: 10px;
-    border: 2px solid #3060ac; /* Waystar Medium Blue */
+    border: 2px solid #3060ac;
 }
 
-/* When there are no friends */
-.friends-section p {
-    color: #777777;
-    text-align: center;
-    padding: 15px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-    margin: 10px 0;
-}
-
-/* Friend Suggestions Styles */
+/* Friend Suggestions */
 .friend-suggestions-page {
     width: 80%;
     margin: 30px auto;
@@ -405,35 +494,7 @@ nav {
     background-color: #1e3f7a;
 }
 
-.no-suggestions {
-    text-align: center;
-    color: #777777;
-    padding: 20px;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-}
-
-/* Friend Suggestions Link */
-.friend-suggestions-link {
-    margin-top: 20px;
-    text-align: center;
-}
-
-.friend-suggestions-button {
-    background-color: #3060ac;
-    color: #ffffff;
-    padding: 10px 20px;
-    text-decoration: none;
-    border-radius: 4px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.friend-suggestions-button:hover {
-    background-color: #1e3f7a;
-}
-
-/* News Feed Styles */
+/* News Feed */
 .news-feed-page {
     width: 80%;
     margin: 30px auto;
@@ -514,52 +575,136 @@ nav {
     margin-top: 10px;
 }
 
-.no-posts {
+/* Generic Messages */
+.no-posts,
+.no-suggestions,
+.friends-section p {
     text-align: center;
     color: #777777;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 5px;
+    margin: 10px 0;
 }
 
-/* News Feed Link for Profile Page */
-.news-feed-link {
+/* Back Links */
+.back-link {
     margin-top: 20px;
     text-align: center;
 }
 
-.news-feed-button {
-    background-color: #3060ac;
-    color: #ffffff;
-    padding: 10px 20px;
+.back-link a {
     text-decoration: none;
-    border-radius: 4px;
+    color: #3060ac;
     font-weight: bold;
-    transition: background-color 0.3s ease;
 }
 
-.news-feed-button:hover {
-    background-color: #1e3f7a;
+.back-link a:hover {
+    text-decoration: underline;
 }
 
+/* Status Images */
+.status-image {
+    max-width: 100%;
+    height: auto;
+    margin: 10px 0;
+    border-radius: 5px;
+}
+
+/* Form Errors */
+.errorlist {
+    color: #dc3545;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0;
+    font-size: 0.9em;
+}
+
+/* Generic Button States */
+button:disabled {
+    opacity: 0.7;
+    cursor: not-allowed;
+}
+
+/* Auth Status Container */
 .auth-status {
     text-align: right;
-    padding: 10px 20px;
-    background-color: #f8f9fa;
-    border-bottom: 1px solid #e9ecef;
+    padding: 12px 20px;
+    background-color: #3060ac; /* Waystar Medium Blue to match your theme */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    color: white;
 }
 
 .auth-status p {
     margin: 0;
     font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 15px;
 }
 
-.auth-status a {
-    color: #007bff;
+/* Logout Form and Button */
+.logout-form {
+    display: inline;
+}
+
+.logout-button {
+    background-color: #731515; /* Waystar Red to match header */
+    color: white;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.logout-button:hover {
+    background-color: #8f1a1a;
+}
+
+/* Login Link */
+.login-link {
+    color: white;
     text-decoration: none;
-    margin-left: 5px;
+    padding: 6px 12px;
+    border: 2px solid white;
+    border-radius: 4px;
+    font-weight: bold;
+    transition: all 0.3s ease;
 }
 
-.auth-status a:hover {
-    text-decoration: underline;
+.login-link:hover {
+    background-color: white;
+    color: #3060ac;
+}
+
+/* Header Navigation Adjustments */
+header nav {
+    background-color: #731515;
+    padding: 10px 0;
+}
+
+.nav-links {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 5px 10px;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }
