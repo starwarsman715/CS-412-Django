@@ -1,9 +1,12 @@
 from django.db import models
 from django.utils import timezone
 from django.urls import reverse 
+from django.contrib.auth.models import User
 
 class Profile(models.Model):
     '''Encapsulate the idea of a Profile for a user.'''
+    
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
 
     # Data attributes of a Profile
     first_name = models.CharField(max_length=30, blank=False)

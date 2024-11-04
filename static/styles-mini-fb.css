@@ -541,3 +541,25 @@ nav {
 .news-feed-button:hover {
     background-color: #1e3f7a;
 }
+
+.auth-status {
+    text-align: right;
+    padding: 10px 20px;
+    background-color: #f8f9fa;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.auth-status p {
+    margin: 0;
+    font-size: 0.9em;
+}
+
+.auth-status a {
+    color: #007bff;
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.auth-status a:hover {
+    text-decoration: underline;
+}

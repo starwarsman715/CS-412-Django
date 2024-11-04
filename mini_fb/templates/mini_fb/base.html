@@ -9,6 +9,13 @@
 <body>
     <header>
         <h1>ATN Connect</h1>
+        <div class="auth-status">
+            {% if user.is_authenticated %}
+                <p>Currently logged in as: {{ user.username }}</p>
+            {% else %}
+                <p>Not currently logged in</p>
+            {% endif %}
+        </div>
         <nav>
             <ul class="nav-links">
                 <li><a href="{% url 'show_all_profiles' %}">All Profiles</a></li>

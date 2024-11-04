@@ -25,21 +25,29 @@
         </table>
     </div>
 
-    <!-- Link to Update Profile -->
-    <div class="update-profile-link">
-        <a href="{% url 'update_profile' profile.pk %}" class="update-profile-button">Update Profile</a>
-    </div>
-    
-    <!-- Link to Create a New Status Message -->
-    <div class="post-status-link">
-        <a href="{% url 'create_status' profile.pk %}" class="post-status-button">Post a Status Message</a>
-    </div>
+    {% if user.is_authenticated and user == profile.user %}
+        <!-- Link to Update Profile - Only shown to profile owner -->
+        <div class="update-profile-link">
+            <a href="{% url 'update_profile' profile.pk %}" class="update-profile-button">Update Profile</a>
+        </div>
+        
+        <!-- Link to Create a New Status Message - Only shown to profile owner -->
+        <div class="post-status-link">
+            <a href="{% url 'create_status' profile.pk %}" class="post-status-button">Post a Status Message</a>
+        </div>
 
-    <div class="news-feed-link">
-        <a href="{% url 'news_feed' profile.pk %}" class="news-feed-button">View News Feed</a>
-    </div>
+        <!-- News Feed Link - Only shown to profile owner -->
+        <div class="news-feed-link">
+            <a href="{% url 'news_feed' profile.pk %}" class="news-feed-button">View News Feed</a>
+        </div>
 
-        <!-- Friends Section -->
+        <!-- Friend Suggestions Link - Only shown to profile owner -->
+        <div class="friend-suggestions-link">
+            <a href="{% url 'friend_suggestions' profile.pk %}" class="friend-suggestions-button">Find New Friends</a>
+        </div>
+    {% endif %}
+
+    <!-- Friends Section - Visible to everyone -->
     <div class="friends-section">
         <h3>Friends</h3>
         {% with friends=profile.get_friends %}
@@ -62,10 +70,6 @@
         {% endwith %}
     </div>
 
-    <div class="friend-suggestions-link">
-        <a href="{% url 'friend_suggestions' profile.pk %}" class="friend-suggestions-button">Find New Friends</a>
-    </div>
-
     <!-- Status Messages Section -->
     <div class="status-messages">
         <h3>Status Messages</h3>
@@ -81,9 +85,11 @@
                             <img src="{{ img.image_file.url }}" alt="Image for StatusMessage {{ status.id }}" class="status-image">
                         {% endfor %}
                         
-                        <!-- New Delete Link -->
-                        <a href="{% url 'update_status' status.pk %}" class="update-status-link">update</a>
-                        <a href="{% url 'delete_status' status.pk %}" class="delete-status-link">delete</a>
+                        <!-- Update/Delete Links - Only shown to profile owner -->
+                        {% if user.is_authenticated and user == profile.user %}
+                            <a href="{% url 'update_status' status.pk %}" class="update-status-link">update</a>
+                            <a href="{% url 'delete_status' status.pk %}" class="delete-status-link">delete</a>
+                        {% endif %}
                     </li>
                 {% endfor %}
             </ul>
