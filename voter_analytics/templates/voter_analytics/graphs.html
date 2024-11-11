@@ -1,0 +1,72 @@
+{% extends 'voter_analytics/base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>Voter Analytics Graphs</h2>
+    
+    <!-- Filter Form -->
+    <form method="get" class="filter-form">
+        {{ form.as_p }}
+        <button type="submit">Apply Filters</button>
+        <a href="{% url 'graphs' %}">Clear Filters</a>
+    </form>
+
+    <!-- Graphs Container -->
+    <div class="graphs-container">
+        <!-- Birth Year Distribution -->
+        <div class="graph-section">
+            <div class="graph">
+                {{ birth_year_graph|safe }}
+            </div>
+        </div>
+
+        <!-- Party Affiliation Distribution -->
+        <div class="graph-section">
+            <div class="graph">
+                {{ party_graph|safe }}
+            </div>
+        </div>
+
+        <!-- Election Participation -->
+        <div class="graph-section">
+            <div class="graph">
+                {{ election_graph|safe }}
+            </div>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <div class="navigation">
+        <a href="{% url 'voters' %}">Back to Voter List</a>
+    </div>
+</div>
+
+<style>
+    .graphs-container {
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        margin: 2rem 0;
+    }
+    
+    .graph-section {
+        width: 100%;
+        padding: 1rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    }
+    
+    .filter-form {
+        margin: 2rem 0;
+        padding: 1rem;
+        background: #f5f5f5;
+        border-radius: 8px;
+    }
+    
+    .navigation {
+        margin-top: 2rem;
+        padding: 1rem 0;
+    }
+</style>
+{% endblock %}
