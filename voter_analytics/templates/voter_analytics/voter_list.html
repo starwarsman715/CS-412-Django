@@ -26,7 +26,7 @@
             <td>{{ voter.first_name }} {{ voter.last_name }}</td>
             <td>{{ voter.street_number }} {{ voter.street_name }}</td>
             <td>{{ voter.date_of_birth|date:"Y-m-d" }}</td>
-            <td>{{ voter.party_affiliation }}</td>
+            <td data-party="{{ voter.party_affiliation }}">{{ voter.party_affiliation }}</td>
             <td>{{ voter.voter_score }}/5</td>
             <td><a href="{% url 'voter' voter.pk %}">View Details</a></td>
         </tr>

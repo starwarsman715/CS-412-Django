@@ -1,0 +1,427 @@
+/* voters.css */
+
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600;700&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-blue: #244289;
+    --secondary-blue: #3457D5;
+    --primary-red: #B22234;
+    --secondary-red: #CD2B3A;
+    --neutral-gray: #F0F2F5;
+    --dark-text: #333333;
+    --light-text: #FFFFFF;
+    --border-color: #DEE2E6;
+}
+
+body {
+    font-family: 'Source Sans Pro', sans-serif;
+    line-height: 1.6;
+    color: var(--dark-text);
+    background-color: var(--neutral-gray);
+}
+
+/* Header Styles */
+header {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+header h1 {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+}
+
+/* Navigation Styles */
+nav {
+    padding: 0.5rem 0;
+}
+
+nav a {
+    color: var(--light-text);
+    text-decoration: none;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: var(--secondary-blue);
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: var(--light-text);
+    margin: 1rem 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 1rem;
+    border: 1px solid var(--border-color);
+    text-align: left;
+}
+
+th {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+    font-weight: 600;
+}
+
+tr:nth-child(even) {
+    background-color: var(--neutral-gray);
+}
+
+/* Form Styles */
+form {
+    margin: 2rem 0;
+    padding: 1.5rem;
+    background-color: var(--light-text);
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+    align-items: center;
+}
+
+input, select {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    font-family: inherit;
+}
+
+button {
+    background-color: var(--primary-red);
+    color: var(--light-text);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: var(--secondary-red);
+}
+
+/* Pagination Styles */
+.pagination {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 2rem 0;
+}
+
+.pagination a {
+    color: var(--primary-blue);
+    text-decoration: none;
+    padding: 0.5rem 1rem;
+    margin: 0 0.5rem;
+    border: 1px solid var(--primary-blue);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+}
+
+.pagination a:hover {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+}
+
+/* Voter List Specific Styles */
+.container h2 {
+    color: var(--primary-blue);
+    font-size: 2rem;
+    font-weight: 600;
+    margin: 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 3px solid var(--primary-red);
+}
+
+/* Filter Form Specific Styles */
+.filter-form p {
+    margin: 0;
+}
+
+.filter-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--primary-blue);
+}
+
+.filter-form select,
+.filter-form input[type="text"],
+.filter-form input[type="date"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid var(--border-color);
+    border-radius: 4px;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.filter-form select:focus,
+.filter-form input:focus {
+    outline: none;
+    border-color: var(--primary-blue);
+}
+
+.filter-form button {
+    justify-self: start;
+    min-width: 120px;
+}
+
+.filter-form a {
+    justify-self: start;
+    text-decoration: none;
+    color: var(--primary-blue);
+    padding: 0.5rem 1rem;
+    border: 2px solid var(--primary-blue);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.filter-form a:hover {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+}
+
+/* Table Specific Styles */
+table tr td:last-child a {
+    display: inline-block;
+    text-decoration: none;
+    color: var(--primary-blue);
+    padding: 0.4rem 0.8rem;
+    border: 1px solid var(--primary-blue);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+table tr td:last-child a:hover {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+}
+
+/* Voter Score Styling */
+table tr td:nth-child(5) {
+    font-weight: 600;
+}
+
+/* Pagination Specific Styles */
+.pagination span {
+    padding: 0.5rem 1rem;
+    background-color: var(--light-text);
+    border: 1px solid var(--border-color);
+    border-radius: 4px;
+    color: var(--dark-text);
+}
+
+/* Party Affiliation Colors */
+table tr td:nth-child(4) {
+    font-weight: 600;
+}
+
+[data-party="Democratic"] {
+    color: var(--primary-blue);
+}
+
+[data-party="Republican"] {
+    color: var(--primary-red);
+}
+
+/* Voter Detail Specific Styles */
+.voter-detail table {
+    max-width: 800px;
+    margin: 2rem auto;
+}
+
+.voter-detail table th {
+    width: 200px;
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+}
+
+.voter-detail table td {
+    background-color: var(--light-text);
+}
+
+/* Voting History Section */
+.voter-detail table tr th[colspan="2"] {
+    background-color: var(--secondary-blue);
+    text-align: center;
+    padding: 1rem;
+    font-size: 1.2rem;
+}
+
+/* Yes/No Styling */
+.voter-detail table tr td:last-child:contains("Yes") {
+    color: var(--primary-blue);
+    font-weight: 600;
+}
+
+.voter-detail table tr td:last-child:contains("No") {
+    color: var(--primary-red);
+    font-weight: 600;
+}
+
+/* Map Link Styling */
+.map-link {
+    display: inline-block;
+    margin-top: 0.5rem;
+    color: var(--primary-blue);
+    text-decoration: none;
+    padding: 0.3rem 0.8rem;
+    border: 1px solid var(--primary-blue);
+    border-radius: 4px;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.map-link:hover {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+}
+
+/* Back Link Styling */
+.back-link {
+    display: inline-block;
+    margin-top: 2rem;
+    color: var(--dark-text);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--primary-blue);
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.back-link:hover {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+}
+
+.back-link::before {
+    content: "←";
+    margin-right: 0.5rem;
+}
+
+/* Party Affiliation in Detail View */
+.voter-detail table tr:nth-child(6) td {
+    font-weight: 600;
+}
+
+.voter-detail table tr:nth-child(6) td[data-party="Democratic"] {
+    color: var(--primary-blue);
+}
+
+.voter-detail table tr:nth-child(6) td[data-party="Republican"] {
+    color: var(--primary-red);
+}
+
+/* Voter Score in Detail View */
+.voter-detail table tr:nth-child(8) td {
+    font-weight: 600;
+    font-size: 1.1rem;
+}
+
+/* Analytics Graphs Specific Styles */
+.graphs-container {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+    margin: 2rem 0;
+}
+
+.graph-section {
+    width: 100%;
+    padding: 2rem;
+    background-color: var(--light-text);
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease;
+}
+
+.graph-section:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+}
+
+.graph {
+    width: 100%;
+    height: 400px;
+    margin: 0 auto;
+}
+
+/* Graph Page Navigation */
+.navigation {
+    margin-top: 2.5rem;
+    padding: 1rem 0;
+    display: flex;
+    justify-content: center;
+}
+
+.navigation a {
+    display: inline-block;
+    color: var(--primary-blue);
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    border: 2px solid var(--primary-blue);
+    border-radius: 4px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+}
+
+.navigation a:hover {
+    background-color: var(--primary-blue);
+    color: var(--light-text);
+}
+
+.navigation a::before {
+    content: "←";
+    margin-right: 0.5rem;
+}
+
+/* Graph Page Filter Form */
+.graphs-page .filter-form {
+    background-color: var(--light-text);
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Graph Title Styles */
+.graph-section h3 {
+    color: var(--primary-blue);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+/* Container */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}

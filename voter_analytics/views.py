@@ -1,13 +1,11 @@
-from django.views.generic import ListView, DetailView
-from django.db.models import Q, Case, When, Value
-from .models import Voter
 from datetime import datetime
-
+from django.db.models import Q, Case, When, Value, Count
+from django.db.models.functions import ExtractYear
+from django.views.generic import ListView, DetailView
 import plotly.graph_objects as go
 from plotly.subplots import make_subplots
 from .forms import VoterFilterForm
-from django.db.models import Count
-from django.db.models.functions import ExtractYear
+from .models import Voter
 
 class VoterListView(ListView):
     """View to display voter listing with filters"""

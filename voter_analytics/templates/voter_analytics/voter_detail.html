@@ -1,7 +1,7 @@
 {% extends 'voter_analytics/base.html' %}
 
 {% block content %}
-<div class="container">
+<div class="container voter-detail">
     <h2>Voter Details</h2>
     <table>
         <tr><th>Name:</th><td>{{ voter.first_name }} {{ voter.last_name }}</td></tr>
@@ -13,7 +13,7 @@
         <tr><th>ZIP Code:</th><td>{{ voter.zip_code }}</td></tr>
         <tr><th>Date of Birth:</th><td>{{ voter.date_of_birth|date:"Y-m-d" }}</td></tr>
         <tr><th>Registration Date:</th><td>{{ voter.date_of_registration|date:"Y-m-d" }}</td></tr>
-        <tr><th>Party:</th><td>{{ voter.party_affiliation }}</td></tr>
+        <tr><th>Party:</th><td data-party="{{ voter.party_affiliation }}">{{ voter.party_affiliation }}</td></tr>
         <tr><th>Precinct:</th><td>{{ voter.precinct_number }}</td></tr>
         <tr><th>Voter Score:</th><td>{{ voter.voter_score }}/5</td></tr>
         
