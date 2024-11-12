@@ -160,13 +160,12 @@ class VoterGraphsView(ListView):
             go.Pie(
                 labels=[party['party_affiliation'] for party in party_counts],
                 values=[party['count'] for party in party_counts],
-                textinfo='label+percent',
             )
         ])
         
         fig.update_layout(
             title='Voter Distribution by Party Affiliation',
-            height=400,
+            height=500,
             margin=dict(l=50, r=50, t=50, b=50),
             showlegend=True
         )
