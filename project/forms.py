@@ -3,15 +3,16 @@ from django import forms
 from django.forms import inlineformset_factory
 from .models import Profile, Genre, Song, ProfileGenre, ProfileSong  # Updated imports
 
-class ProfileForm(forms.ModelForm):  # Changed from UserForm
+
+class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['username', 'email', 'birth_date', 'bio']
+        exclude = ['user']  # Exclude the user field as it will be set programmatically
         widgets = {
             'birth_date': forms.DateInput(attrs={'type': 'date'}),
             'bio': forms.Textarea(attrs={'rows': 3}),
         }
-
 class ProfileGenreForm(forms.ModelForm):  # Changed from UserGenreForm
     class Meta:
         model = ProfileGenre  # Changed from UserGenre

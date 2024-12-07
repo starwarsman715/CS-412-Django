@@ -1,3 +1,4 @@
+<!-- project/templates/project/base.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
@@ -12,14 +13,14 @@
         <div class="auth-status">
             {% if user.is_authenticated %}
                 <p>Currently logged in as: {{ user.username }}
-                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                    <form method="post" action="{% url 'project:logout' %}" class="logout-form">
                         {% csrf_token %}
                         <button type="submit" class="logout-button">Logout</button>
                     </form>
                 </p>
             {% else %}
                 <p>Not currently logged in 
-                    <a href="{% url 'login' %}" class="login-link">Login</a>
+                    <a href="{% url 'project:login' %}" class="login-link">Login</a>
                 </p>
             {% endif %}
         </div>
@@ -27,8 +28,8 @@
             <ul class="nav-links">
                 <li><a href="{% url 'project:home' %}">Home</a></li>
                 <li><a href="{% url 'project:profile_list' %}">View Profiles</a></li>
-                <li><a href="{% url 'project:song_list' %}">View Songs</a></li>
                 {% if user.is_authenticated %}
+                    <li><a href="{% url 'project:song_list' %}">View Songs</a></li>
                     {% if user.profile %}
                         <li><a href="{% url 'project:profile_detail' pk=user.profile.pk %}">My Profile</a></li>
                     {% endif %}
@@ -39,7 +40,7 @@
 
     <main class="content">
         {% block content %}
-        {% endblock content %}
+        {% endblock %}
     </main>
 
     <footer>

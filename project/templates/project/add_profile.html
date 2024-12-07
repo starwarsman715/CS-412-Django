@@ -1,21 +1,26 @@
+<!-- project/templates/project/add_profile.html -->
 {% extends 'project/base.html' %}
-{% block title %}Add New Profile{% endblock %}  <!-- Changed from User -->
+{% block title %}Create New Profile{% endblock %}
 {% block content %}
 
-<h2>Add New Profile</h2>  <!-- Changed from User -->
+<h2>Create New Profile</h2>
 
 <form method="post">
     {% csrf_token %}
+    
+    <div class="user-creation-section">
+        <h3>Account Information</h3>
+        {{ user_form.as_p }}
+    </div>
 
-    <div>
-        <h3>Profile Information</h3>  <!-- Changed from User -->
+    <div class="profile-section">
+        <h3>Profile Information</h3>
         {{ form.as_p }}
     </div>
 
-    <div>
+    <div class="genres-section">
         <h3>Favorite Genres (Select 2)</h3>
         <p>Please select exactly two favorite genres.</p>
-
         {{ genre_formset.management_form }}
         {% for form in genre_formset %}
             <div class="form-group">
@@ -30,10 +35,9 @@
         {% endfor %}
     </div>
 
-    <div>
+    <div class="songs-section">
         <h3>Favorite Songs (Select 4)</h3>
         <p>Please select exactly four favorite songs.</p>
-
         {{ song_formset.management_form }}
         {% for form in song_formset %}
             <div class="form-group">
@@ -48,7 +52,7 @@
         {% endfor %}
     </div>
 
-    <button type="submit">Create Profile</button>  <!-- Changed from User -->
+    <button type="submit">Create Profile</button>
 </form>
 
 {% endblock %}

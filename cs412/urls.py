@@ -27,9 +27,6 @@ urlpatterns = [
     path('restaurant/', include('restaurant.urls')),
     path('voters/', include('voter_analytics.urls')),
     path('project/', include('project.urls')),
-    
-    path('project/login/', auth_views.LoginView.as_view(template_name='registration/login.html'), name='login'),
-    path('project/logout/', auth_views.LogoutView.as_view(), name='logout'),
     ]
 
 if settings.DEBUG:
