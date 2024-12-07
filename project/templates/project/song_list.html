@@ -4,6 +4,7 @@
 {% block title %}Song List{% endblock %}
 
 {% block content %}
+    <a href="{% url 'project:add_song' %}" class="btn btn-success mb-3">Add New Song</a>
     <h2>List of Songs</h2>
     <table>
         <thead>

@@ -32,7 +32,7 @@ class Song(models.Model):
     artist = models.CharField(max_length=200)
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='songs')
     release_year = models.PositiveIntegerField()
-    spotify_url = models.URLField()
+    youtube_url = models.URLField()
 
     def __str__(self):
         return f"{self.title} by {self.artist}"

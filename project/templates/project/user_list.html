@@ -5,6 +5,8 @@
 
 {% block content %}
     <h2>List of Users</h2>
+    <a href="{% url 'project:add_user' %}" class="btn btn-success mb-3">Add New User</a>
+
     <ul>
         {% for user in users %}
             <li>

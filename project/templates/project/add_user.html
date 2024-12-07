@@ -1,0 +1,51 @@
+<!-- project/templates/project/add_user.html -->
+{% extends 'project/base.html' %}
+
+{% block title %}Add New User{% endblock %}
+
+{% block content %}
+    <h2>Add New User</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- User Information -->
+        <fieldset>
+            <legend>User Information</legend>
+            {{ form.as_p }}
+        </fieldset>
+        
+        <!-- Favorite Genres -->
+        <fieldset>
+            <legend>Favorite Genres (Select 2)</legend>
+            <p>Please select exactly two favorite genres.</p>
+            {{ genre_formset.management_form }}
+            {% for form in genre_formset %}
+                <div class="form-group">
+                    {{ form.genre.label_tag }}
+                    {{ form.genre }}
+                    {% if form.genre.errors %}
+                        <div class="error">{{ form.genre.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </fieldset>
+        
+        <!-- Favorite Songs -->
+        <fieldset>
+            <legend>Favorite Songs (Select 4)</legend>
+            <p>Please select exactly four favorite songs.</p>
+            {{ song_formset.management_form }}
+            {% for form in song_formset %}
+                <div class="form-group">
+                    {{ form.song.label_tag }}
+                    {{ form.song }}
+                    {% if form.song.errors %}
+                        <div class="error">{{ form.song.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </fieldset>
+        
+        <button type="submit">Create User</button>
+    </form>
+{% endblock %}
