@@ -40,7 +40,6 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     "quotes",
     "restaurant",
-    'mini_fb',
     'voter_analytics',
     'project'
 ]
@@ -136,6 +135,6 @@ MEDIA_URL = '/media/'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-LOGIN_REDIRECT_URL = '/mini_fb/'  # Where to redirect after successful login
-LOGOUT_REDIRECT_URL = '/mini_fb/'  # Where to redirect after logout
-LOGIN_URL = '/mini_fb/login/'     # Where to redirect for login required
+LOGIN_REDIRECT_URL = '/project/'  # Where to redirect after successful login
+LOGOUT_REDIRECT_URL = '/project/'  # Where to redirect after logout
+LOGIN_URL = '/project/login/'     # Where to redirect for login required
