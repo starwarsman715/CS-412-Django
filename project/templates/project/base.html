@@ -1,29 +1,45 @@
-<!-- project/templates/project/base.html -->
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Dating App - {% block title %}{% endblock %}</title>
+    <title>Music Dating App</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     <header>
-        <!-- Temporary base.html navigation with only Home link -->
+        <h1>Music Dating App</h1>
+        <div class="auth-status">
+            {% if user.is_authenticated %}
+                <p>Currently logged in as: {{ user.username }}
+                    <form method="post" action="{% url 'logout' %}" class="logout-form">
+                        {% csrf_token %}
+                        <button type="submit" class="logout-button">Logout</button>
+                    </form>
+                </p>
+            {% else %}
+                <p>Not currently logged in 
+                    <a href="{% url 'login' %}" class="login-link">Login</a>
+                </p>
+            {% endif %}
+        </div>
         <nav>
-            <ul>
+            <ul class="nav-links">
                 <li><a href="{% url 'project:home' %}">Home</a></li>
                 <li><a href="{% url 'project:profile_list' %}">View Profiles</a></li>
                 <li><a href="{% url 'project:song_list' %}">View Songs</a></li>
+                {% if user.is_authenticated %}
+                    {% if user.profile %}
+                        <li><a href="{% url 'project:profile_detail' pk=user.profile.pk %}">My Profile</a></li>
+                    {% endif %}
+                {% endif %}
             </ul>
         </nav>
     </header>
 
-    <main>
+    <main class="content">
         {% block content %}
-        <!-- Child templates will inject content here -->
-        {% endblock %}
+        {% endblock content %}
     </main>
 
     <footer>

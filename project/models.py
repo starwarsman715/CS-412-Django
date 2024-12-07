@@ -1,13 +1,13 @@
-# project/models.py
 from django.db import models
-
+from django.contrib.auth.models import User  
 class Genre(models.Model):
     name = models.CharField(max_length=100, unique=True)
 
     def __str__(self):
         return self.name
 
-class Profile(models.Model):  # Changed from User to Profile
+class Profile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE, null=True)  # Add this line
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
     birth_date = models.DateField()
