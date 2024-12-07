@@ -1,60 +1,60 @@
 # project/forms.py
 from django import forms
 from django.forms import inlineformset_factory
-from .models import User, Genre, Song, UserGenre, UserSong
+from .models import Profile, Genre, Song, ProfileGenre, ProfileSong  # Updated imports
 
-class UserForm(forms.ModelForm):
+class ProfileForm(forms.ModelForm):  # Changed from UserForm
     class Meta:
-        model = User
+        model = Profile
         fields = ['username', 'email', 'birth_date', 'bio']
         widgets = {
             'birth_date': forms.DateInput(attrs={'type': 'date'}),
             'bio': forms.Textarea(attrs={'rows': 3}),
         }
 
-class UserGenreForm(forms.ModelForm):
+class ProfileGenreForm(forms.ModelForm):  # Changed from UserGenreForm
     class Meta:
-        model = UserGenre
+        model = ProfileGenre  # Changed from UserGenre
         fields = ['genre']
         widgets = {
             'genre': forms.Select(attrs={'class': 'form-control'}),
         }
 
-class UserSongForm(forms.ModelForm):
+class ProfileSongForm(forms.ModelForm):  # Changed from UserSongForm
     class Meta:
-        model = UserSong
+        model = ProfileSong  # Changed from UserSong
         fields = ['song']
         widgets = {
             'song': forms.Select(attrs={'class': 'form-control'}),
         }
 
 # Define formset for genres
-UserGenreFormSet = inlineformset_factory(
-    User,
-    UserGenre,
-    form=UserGenreForm,
+ProfileGenreFormSet = inlineformset_factory(  # Changed from UserGenreFormSet
+    Profile,  # Changed from User
+    ProfileGenre,  # Changed from UserGenre
+    form=ProfileGenreForm,  # Changed from UserGenreForm
     extra=2,  # Allow adding up to 2 genres
     max_num=2,  # Limit to exactly 2 genres
     validate_max=True,
     can_delete=False,
 )
 
-# Define formset for new users
-NewUserSongFormSet = inlineformset_factory(
-    User,
-    UserSong,
-    form=UserSongForm,
-    extra=4,  # Show 4 empty forms for new users
+# Define formset for new profiles
+NewProfileSongFormSet = inlineformset_factory(  # Changed from NewUserSongFormSet
+    Profile,  # Changed from User
+    ProfileSong,  # Changed from UserSong
+    form=ProfileSongForm,  # Changed from UserSongForm
+    extra=4,  # Show 4 empty forms for new profiles
     max_num=4,  # Maximum of 4 songs allowed
     validate_max=True,
     can_delete=False,
 )
 
-# Define formset for updating existing users
-UpdateUserSongFormSet = inlineformset_factory(
-    User,
-    UserSong,
-    form=UserSongForm,
+# Define formset for updating existing profiles
+UpdateProfileSongFormSet = inlineformset_factory(  # Changed from UpdateUserSongFormSet
+    Profile,  # Changed from User
+    ProfileSong,  # Changed from UserSong
+    form=ProfileSongForm,  # Changed from UserSongForm
     extra=0,  # No extra forms when updating
     max_num=4,  # Maximum of 4 songs allowed
     validate_max=True,

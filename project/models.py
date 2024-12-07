@@ -7,7 +7,7 @@ class Genre(models.Model):
     def __str__(self):
         return self.name
 
-class User(models.Model):
+class Profile(models.Model):  # Changed from User to Profile
     username = models.CharField(max_length=150, unique=True)
     email = models.EmailField(unique=True)
     birth_date = models.DateField()
@@ -17,15 +17,15 @@ class User(models.Model):
     def __str__(self):
         return self.username
 
-class UserGenre(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_genres')
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='user_genres')
+class ProfileGenre(models.Model):  # Changed from UserGenre to ProfileGenre
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_genres')  # Changed from user to profile
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name='profile_genres')  # Changed related_name
 
     class Meta:
-        unique_together = ('user', 'genre')
+        unique_together = ('profile', 'genre')  # Changed from user to profile
 
     def __str__(self):
-        return f"{self.user.username} prefers {self.genre.name}"
+        return f"{self.profile.username} prefers {self.genre.name}"
 
 class Song(models.Model):
     title = models.CharField(max_length=200)
@@ -37,21 +37,21 @@ class Song(models.Model):
     def __str__(self):
         return f"{self.title} by {self.artist}"
 
-class UserSong(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_songs')
-    song = models.ForeignKey(Song, on_delete=models.CASCADE, related_name='user_songs')
+class ProfileSong(models.Model):  # Changed from UserSong to ProfileSong
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='profile_songs')  # Changed from user to profile
+    song = models.ForeignKey(Song, on_delete=models.CASCADE, related_name='profile_songs')  # Changed related_name
     added_at = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'song')
+        unique_together = ('profile', 'song')  # Changed from user to profile
 
     def __str__(self):
-        return f"{self.user.username}'s favorite: {self.song.title}"
+        return f"{self.profile.username}'s favorite: {self.song.title}"
 
     def save(self, *args, **kwargs):
-        if not self.pk and UserSong.objects.filter(user=self.user).count() >= 5:
-            raise ValueError("A user cannot have more than 5 favorite songs.")
-        super(UserSong, self).save(*args, **kwargs)
+        if not self.pk and ProfileSong.objects.filter(profile=self.profile).count() >= 5:  # Changed from UserSong and user to ProfileSong and profile
+            raise ValueError("A profile cannot have more than 5 favorite songs.")
+        super(ProfileSong, self).save(*args, **kwargs)
 
 class Match(models.Model):
     STATUS_CHOICES = [
@@ -60,8 +60,8 @@ class Match(models.Model):
         ('rejected', 'Rejected'),
     ]
 
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_matches')
-    receiver = models.ForeignKey(User, on_delete=models.CASCADE, related_name='received_matches')
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sent_matches')  # Changed from User to Profile
+    receiver = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='received_matches')  # Changed from User to Profile
     created_at = models.DateTimeField(auto_now_add=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='pending')
 
@@ -73,7 +73,7 @@ class Match(models.Model):
 
 class Comment(models.Model):
     match = models.ForeignKey(Match, on_delete=models.CASCADE, related_name='comments')
-    sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sent_comments')
+    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sent_comments')  # Changed from User to Profile
     content = models.TextField()
     timestamp = models.DateTimeField(auto_now_add=True)
 
@@ -81,15 +81,15 @@ class Comment(models.Model):
         return f"Comment from {self.sender.username} on {self.match}"
 
 class ShownProfile(models.Model):
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shown_profiles_records')
-    shown_profile = models.ForeignKey(User, on_delete=models.CASCADE, related_name='shown_to_users')
+    profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='shown_profiles_records')  # Changed from user to profile
+    shown_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='shown_to_profiles')  # Changed from User to Profile and related_name
     timestamp = models.DateTimeField(auto_now_add=True)
 
     class Meta:
-        unique_together = ('user', 'shown_profile')
+        unique_together = ('profile', 'shown_profile')  # Changed from user to profile
 
     def __str__(self):
-        return f"{self.user.username} has seen {self.shown_profile.username}"
+        return f"{self.profile.username} has seen {self.shown_profile.username}"
 
 def load_data():
     """Function to load song data records from a CSV file into Song model instances."""

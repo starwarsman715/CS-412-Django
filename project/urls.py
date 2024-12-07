@@ -1,3 +1,4 @@
+# project/urls.py
 from django.urls import path
 from . import views
 from .views import *
@@ -7,15 +8,15 @@ app_name = 'project'
 urlpatterns = [
     path('', views.home, name='home'),
     
-    path('users/', UserListView.as_view(), name='user_list'),
+    path('profiles/', ProfileListView.as_view(), name='profile_list'),  # Changed from users to profiles
     path('songs/', SongListView.as_view(), name='song_list'),
     
-    path('users/<int:pk>/', views.UserDetailView.as_view(), name='user_detail'),
+    path('profiles/<int:pk>/', views.ProfileDetailView.as_view(), name='profile_detail'),  # Changed from UserDetailView to ProfileDetailView
     path('songs/<int:pk>/', views.SongDetailView.as_view(), name='song_detail'),
     
-    path('add_user/', views.AddUserView.as_view(), name='add_user'),
+    path('add_profile/', views.AddProfileView.as_view(), name='add_profile'),  # Changed from add_user to add_profile
     path('add_song/', views.SongCreateView.as_view(), name='add_song'),
     
-    path('users/<int:pk>/update/', views.UserUpdateView.as_view(), name='update_user'),
-    path('users/<int:pk>/delete/', views.UserDeleteView.as_view(), name='delete_user'),
+    path('profiles/<int:pk>/update/', views.ProfileUpdateView.as_view(), name='update_profile'),  # Changed user to profile
+    path('profiles/<int:pk>/delete/', views.ProfileDeleteView.as_view(), name='delete_profile'),  # Changed user to profile
 ]

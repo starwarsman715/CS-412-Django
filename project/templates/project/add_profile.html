@@ -1,0 +1,54 @@
+{% extends 'project/base.html' %}
+{% block title %}Add New Profile{% endblock %}  <!-- Changed from User -->
+{% block content %}
+
+<h2>Add New Profile</h2>  <!-- Changed from User -->
+
+<form method="post">
+    {% csrf_token %}
+
+    <div>
+        <h3>Profile Information</h3>  <!-- Changed from User -->
+        {{ form.as_p }}
+    </div>
+
+    <div>
+        <h3>Favorite Genres (Select 2)</h3>
+        <p>Please select exactly two favorite genres.</p>
+
+        {{ genre_formset.management_form }}
+        {% for form in genre_formset %}
+            <div class="form-group">
+                {{ form.genre.label_tag }}
+                {{ form.genre }}
+                {% if form.genre.errors %}
+                    <div class="error">
+                        {{ form.genre.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <div>
+        <h3>Favorite Songs (Select 4)</h3>
+        <p>Please select exactly four favorite songs.</p>
+
+        {{ song_formset.management_form }}
+        {% for form in song_formset %}
+            <div class="form-group">
+                {{ form.song.label_tag }}
+                {{ form.song }}
+                {% if form.song.errors %}
+                    <div class="error">
+                        {{ form.song.errors }}
+                    </div>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <button type="submit">Create Profile</button>  <!-- Changed from User -->
+</form>
+
+{% endblock %}
