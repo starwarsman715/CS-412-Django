@@ -1,0 +1,44 @@
+<!-- project/templates/project/swipe.html -->
+{% extends 'project/base.html' %}
+{% block title %}Find Matches{% endblock %}
+
+{% block content %}
+{% if profile %}
+    <div class="profile-card">
+        <h2>{{ profile.username }}</h2>
+        <p>{{ profile.bio }}</p>
+        
+        <div class="genres">
+            <h3>Favorite Genres:</h3>
+            <ul>
+                {% for profile_genre in profile.profile_genres.all %}
+                    <li>{{ profile_genre.genre.name }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        
+        <div class="favorite-songs">
+            <h3>Favorite Songs:</h3>
+            <ul>
+                {% for profile_song in profile.profile_songs.all %}
+                    <li>{{ profile_song.song.title }} by {{ profile_song.song.artist }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+
+        <div class="swipe-actions">
+            <form method="post" action="{% url 'project:pass_profile' profile.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-pass">Pass</button>
+            </form>
+
+            <form method="post" action="{% url 'project:create_match' profile.pk %}" style="display: inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-like">Like</button>
+            </form>
+        </div>
+    </div>
+{% else %}
+    <p>No more profiles to show right now!</p>
+{% endif %}
+{% endblock %}

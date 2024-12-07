@@ -1,0 +1,31 @@
+<!-- project/templates/project/matches_list.html -->
+{% extends 'project/base.html' %}
+{% block title %}Your Matches{% endblock %}
+
+{% block content %}
+<h2>Your Matches</h2>
+
+{% if matches %}
+    <div class="matches-list">
+        {% for match in matches %}
+            <div class="match-card">
+                {% if match.sender == user.profile %}
+                    {% with profile=match.receiver %}
+                        <h3>{{ profile.username }}</h3>
+                        <p>{{ profile.bio }}</p>
+                        <a href="{% url 'project:profile_detail' pk=profile.pk %}" class="btn-view">View Profile</a>
+                    {% endwith %}
+                {% else %}
+                    {% with profile=match.sender %}
+                        <h3>{{ profile.username }}</h3>
+                        <p>{{ profile.bio }}</p>
+                        <a href="{% url 'project:profile_detail' pk=profile.pk %}" class="btn-view">View Profile</a>
+                    {% endwith %}
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p>No matches yet! Keep swiping to find your musical match!</p>
+{% endif %}
+{% endblock %}

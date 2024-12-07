@@ -1,16 +1,34 @@
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View  # Added View
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.db.models import Q
 from django.forms import inlineformset_factory
 from django.db import transaction
-from django.contrib.auth.mixins import LoginRequiredMixin  # Add this import
-from .models import Profile, Song, ProfileGenre, ProfileSong, Genre
-from .forms import (ProfileForm, ProfileGenreFormSet, NewProfileSongFormSet,
-                   UpdateProfileSongFormSet, SongForm, SongSearchForm)
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
+from django.http import JsonResponse
+
+from .models import (
+    Profile, 
+    Song, 
+    ProfileGenre, 
+    ProfileSong, 
+    Genre,
+    Match,           # Added
+    ShownProfile     # Added
+)
+from .forms import (
+    ProfileForm, 
+    ProfileGenreFormSet, 
+    NewProfileSongFormSet,
+    UpdateProfileSongFormSet, 
+    SongForm, 
+    SongSearchForm
+)
+
+# Rest of your views remain the same...
 
 
 def home(request):
@@ -226,3 +244,105 @@ class ProfileDeleteView(LoginRequiredMixin, DeleteView):
     def delete(self, request, *args, **kwargs):
         messages.success(self.request, "Profile deleted successfully!")
         return super().delete(request, *args, **kwargs)
+    
+class SwipeView(LoginRequiredMixin, View):
+    def get(self, request):
+        # Get the current user's profile
+        current_profile = request.user.profile
+        
+        # Get the ID of the last viewed profile from the session
+        last_viewed_id = request.session.get('last_viewed_profile_id', 0)
+        
+        # Get profiles that have been matched with current user
+        matched_profiles = Match.objects.filter(
+            Q(sender=current_profile) |
+            Q(receiver=current_profile)
+        ).values_list('sender', 'receiver')
+        
+        # Flatten and combine sender and receiver IDs
+        matched_ids = set()
+        for sender_id, receiver_id in matched_profiles:
+            matched_ids.add(sender_id)
+            matched_ids.add(receiver_id)
+
+        # Get next profile after the last viewed ID
+        potential_matches = Profile.objects.exclude(
+            id__in=matched_ids
+        ).exclude(
+            id=current_profile.id
+        ).filter(
+            profile_genres__genre__in=current_profile.profile_genres.values('genre'),
+            id__gt=last_viewed_id
+        ).order_by('id')
+
+        # If no more profiles after last_viewed_id, start over from beginning
+        if not potential_matches.exists():
+            potential_matches = Profile.objects.exclude(
+                id__in=matched_ids
+            ).exclude(
+                id=current_profile.id
+            ).filter(
+                profile_genres__genre__in=current_profile.profile_genres.values('genre')
+            ).order_by('id')
+            # Reset last viewed ID
+            last_viewed_id = 0
+
+        if potential_matches.exists():
+            profile_to_show = potential_matches.first()
+            # Store the current profile ID in session
+            request.session['last_viewed_profile_id'] = profile_to_show.id
+            return render(request, 'project/swipe.html', {
+                'profile': profile_to_show
+            })
+        else:
+            messages.info(request, "No more profiles to show right now!")
+            return redirect('project:profile_list')
+class CreateMatchView(LoginRequiredMixin, View):
+    def post(self, request, receiver_pk):
+        try:
+            sender_profile = request.user.profile
+            receiver_profile = Profile.objects.get(pk=receiver_pk)
+            
+            # Check if a match already exists
+            existing_match = Match.objects.filter(
+                Q(sender=sender_profile, receiver=receiver_profile) |
+                Q(sender=receiver_profile, receiver=sender_profile)
+            ).first()
+            
+            if existing_match:
+                if existing_match.sender == receiver_profile:
+                    # Other person already liked current user
+                    existing_match.status = 'accepted'
+                    existing_match.save()
+                    messages.success(request, f"It's a match with {receiver_profile.username}!")
+                else:
+                    messages.info(request, "You already liked this profile!")
+            else:
+                # Create new pending match
+                Match.objects.create(
+                    sender=sender_profile,
+                    receiver=receiver_profile,
+                    status='pending'
+                )
+                messages.success(request, f"You liked {receiver_profile.username}!")
+            
+            return redirect('project:swipe')
+            
+        except Profile.DoesNotExist:
+            messages.error(request, "Profile not found!")
+            return redirect('project:swipe')
+
+class PassProfileView(LoginRequiredMixin, View):
+    def post(self, request, profile_pk):
+        # Store the passed profile ID in session
+        request.session['last_viewed_profile_id'] = profile_pk
+        return redirect('project:swipe')
+class MatchesListView(LoginRequiredMixin, ListView):
+    template_name = 'project/matches_list.html'
+    context_object_name = 'matches'
+
+    def get_queryset(self):
+        return Match.objects.filter(
+            Q(sender=self.request.user.profile, status='accepted') |
+            Q(receiver=self.request.user.profile, status='accepted')
+        )
