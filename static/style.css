@@ -28,14 +28,14 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #1c1c1c;
+    color: #fff;
     text-decoration: none;
     font-weight: bold;
 }
 
 main {
     padding: 20px;
-    margin-bottom: 50px; /* Raise content to prevent footer overlap */
+    margin-bottom: 50px; /* Prevent overlap with footer */
 }
 
 /* Footer Styling */
@@ -49,26 +49,87 @@ footer {
     width: 100%;
 }
 
-/* List Styling for User and Song Lists */
+/* Table Styling for Song List */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: #fff;
+}
+
+table thead tr {
+    background-color: #f4f4f4;
+    border-bottom: 2px solid #ddd;
+}
+
+table thead th {
+    text-align: left;
+    padding: 10px;
+    font-weight: bold;
+    color: #333;
+}
+
+table tbody tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+table tbody tr:nth-child(odd) {
+    background-color: #fff;
+}
+
+table td, table th {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+table a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+/* Detail Page Styling */
+h2 {
+    text-align: center;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+p {
+    margin: 10px 0;
+}
+
+p strong {
+    color: #333;
+}
+
 ul {
     list-style: none;
     padding: 0;
-    margin: 0;
+    margin: 10px 0;
 }
 
 ul li {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    padding: 10px;
-    margin: 10px 0;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    padding: 5px 0;
 }
 
 ul li a {
     color: #007BFF;
     text-decoration: none;
-    font-weight: bold;
+}
+
+ul li a:hover {
+    text-decoration: underline;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+    display: inline-block;
+    margin-top: 20px;
+}
+
+a:hover {
+    text-decoration: underline;
 }
 
 /* Pagination Styling */
@@ -99,11 +160,4 @@ ul li a {
     border-radius: 5px;
     background-color: #007BFF;
     color: #fff;
-}
-
-/* Heading Styling */
-h2 {
-    text-align: center;
-    color: #333;
-    margin-bottom: 20px;
 }

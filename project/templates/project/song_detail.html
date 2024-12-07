@@ -1,0 +1,27 @@
+<!-- project/templates/project/song_detail.html -->
+{% extends 'project/base.html' %}
+
+{% block title %}{{ song.title }} by {{ song.artist }}{% endblock %}
+
+{% block content %}
+    <h2>{{ song.title }}</h2>
+    <p><strong>Artist:</strong> {{ song.artist }}</p>
+    <p><strong>Genre:</strong> {{ song.genre.name }}</p>
+    <p><strong>Release Year:</strong> {{ song.release_year }}</p>
+    <p><strong>Listen on Youtube:</strong> <a href="{{ song.spotify_url }}" target="_blank">Click Here</a></p>
+
+    <h3>Users Who Favorited This Song:</h3>
+    <ul>
+        {% for user_song in favorite_users %}
+            <li>
+                <a href="{% url 'project:user_detail' pk=user_song.user.id %}">
+                    {{ user_song.user.username }}
+                </a>
+            </li>
+        {% empty %}
+            <li>No users have favorited this song yet.</li>
+        {% endfor %}
+    </ul>
+
+    <a href="{% url 'project:song_list' %}">Back to Song List</a>
+{% endblock %}

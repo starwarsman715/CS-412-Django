@@ -8,17 +8,24 @@
     <ul>
         {% for user in users %}
             <li>
-                <a>
+                <a href="{% url 'project:user_detail' pk=user.id %}">
                     {{ user.username }}
                 </a>
                 - {{ user.email }}
+                <br>
+                <strong>Preferred Genres:</strong>
+                {% for user_genre in user.user_genres.all %}
+                    {{ user_genre.genre.name }}{% if not forloop.last %}, {% endif %}
+                {% empty %}
+                    None
+                {% endfor %}
             </li>
         {% empty %}
             <li>No users found.</li>
         {% endfor %}
     </ul>
 
-    <!-- Pagination Controls -->
+    <!-- Pagination Controls (unchanged) -->
     {% if is_paginated %}
         <div class="pagination">
             <span>
