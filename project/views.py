@@ -2,12 +2,13 @@ from django.views.generic import ListView, DetailView, CreateView, UpdateView, D
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.urls import reverse_lazy
+from django.db.models import Q
 from django.forms import inlineformset_factory
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin  # Add this import
 from .models import Profile, Song, ProfileGenre, ProfileSong, Genre
 from .forms import (ProfileForm, ProfileGenreFormSet, NewProfileSongFormSet,
-                   UpdateProfileSongFormSet, SongForm)
+                   UpdateProfileSongFormSet, SongForm, SongSearchForm)
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
 
@@ -22,12 +23,46 @@ class ProfileListView(ListView):
     context_object_name = 'profiles'
     paginate_by = 6
 
+
 class SongListView(ListView):
     model = Song
     template_name = 'project/song_list.html'
     context_object_name = 'songs'
     paginate_by = 6
 
+    def get_queryset(self):
+        queryset = Song.objects.all()
+        form = SongSearchForm(self.request.GET)
+        
+        if form.is_valid():
+            # Search query for title or artist
+            search_query = form.cleaned_data.get('search_query')
+            if search_query:
+                queryset = queryset.filter(
+                    Q(title__icontains=search_query) |
+                    Q(artist__icontains=search_query)
+                )
+
+            # Filter by genre
+            genre = form.cleaned_data.get('genre')
+            if genre:
+                queryset = queryset.filter(genre=genre)
+
+            # Filter by year range
+            year_from = form.cleaned_data.get('year_from')
+            if year_from:
+                queryset = queryset.filter(release_year__gte=year_from)
+
+            year_to = form.cleaned_data.get('year_to')
+            if year_to:
+                queryset = queryset.filter(release_year__lte=year_to)
+
+        return queryset.order_by('-release_year')
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = SongSearchForm(self.request.GET)
+        return context
 class ProfileDetailView(DetailView):
     model = Profile
     template_name = 'project/profile_detail.html'

@@ -1,50 +1,61 @@
+<!-- project/templates/project/profile_list.html -->
 {% extends 'project/base.html' %}
-{% block title %}Profile List{% endblock %}  <!-- Changed from User List -->
+{% block title %}Profile List{% endblock %}
 {% block content %}
 
-<h2>List of Profiles</h2>  <!-- Changed from Users -->
+<div class="profile-list">
+    <h2>List of Profiles</h2>
 
-<a href="{% url 'project:add_profile' %}" class="btn btn-success mb-3">Add New Profile</a>  <!-- Changed from add_user -->
+    {% if user.is_authenticated %}
+        <a href="{% url 'project:add_profile' %}" class="btn btn-success mb-3">Create New Profile</a>
+    {% endif %}
 
-<div class="list">
-    {% for profile in profiles %}  <!-- Changed from users -->
-        <div>
-            <a href="{% url 'project:profile_detail' pk=profile.id %}">{{ profile.username }}</a> - {{ profile.email }}
-            <div>
-                <strong>Preferred Genres:</strong>
-                {% for profile_genre in profile.profile_genres.all %}  <!-- Changed from user_genres -->
-                    {{ profile_genre.genre.name }}{% if not forloop.last %}, {% endif %}
-                {% empty %}
-                    None
-                {% endfor %}
-            </div>
-        </div>
-    {% empty %}
-        <div>No profiles found.</div>  <!-- Changed from users -->
-    {% endfor %}
-</div>
+    <table>
+        <thead>
+            <tr>
+                <th>Username</th>
+                <th>Email</th>
+                <th>Preferred Genres</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for profile in profiles %}
+                <tr>
+                    <td><a href="{% url 'project:profile_detail' pk=profile.id %}">{{ profile.username }}</a></td>
+                    <td>{{ profile.email }}</td>
+                    <td>
+                        {% for profile_genre in profile.profile_genres.all %}
+                            {{ profile_genre.genre.name }}{% if not forloop.last %}, {% endif %}
+                        {% empty %}
+                            No preferred genres
+                        {% endfor %}
+                    </td>
+                </tr>
+            {% empty %}
+                <tr>
+                    <td colspan="3">No profiles found.</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
 
-{% if is_paginated %}
-    <div class="pagination">
-        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
-        {% if page_obj.has_previous %}
-            <a href="?page=1">« first</a>
-            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
-        {% endif %}
-        
-        {% for num in page_obj.paginator.page_range %}
-            {% if page_obj.number == num %}
-                <strong>{{ num }}</strong>
-            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
-                <a href="?page={{ num }}">{{ num }}</a>
+    {% if is_paginated %}
+        <div class="pagination">
+            {% if page_obj.has_previous %}
+                <a href="?page=1">&laquo; first</a>
+                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
             {% endif %}
-        {% endfor %}
-        
-        {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">next</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}">last »</a>
-        {% endif %}
-    </div>
-{% endif %}
+
+            <span class="current">
+                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+            </span>
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+            {% endif %}
+        </div>
+    {% endif %}
+</div>
 
 {% endblock %}

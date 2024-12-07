@@ -70,3 +70,27 @@ class SongForm(forms.ModelForm):
             'release_year': forms.NumberInput(attrs={'min': 1900, 'max': 2100}),
             'youtube_url': forms.URLInput(attrs={'placeholder': 'https://youtube.com/...'}),
         }
+
+
+class SongSearchForm(forms.Form):
+    search_query = forms.CharField(
+        required=False, 
+        widget=forms.TextInput(attrs={'placeholder': 'Search by title or artist'})
+    )
+    genre = forms.ModelChoiceField(
+        queryset=Genre.objects.all(),
+        required=False,
+        empty_label="All Genres"
+    )
+    year_from = forms.IntegerField(
+        required=False,
+        min_value=1900,
+        max_value=2024,
+        widget=forms.NumberInput(attrs={'placeholder': 'From Year'})
+    )
+    year_to = forms.IntegerField(
+        required=False,
+        min_value=1900,
+        max_value=2024,
+        widget=forms.NumberInput(attrs={'placeholder': 'To Year'})
+    )
