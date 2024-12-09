@@ -71,15 +71,6 @@ class Match(models.Model):
     def __str__(self):
         return f"Match from {self.sender.username} to {self.receiver.username} - {self.status}"
 
-class Comment(models.Model):
-    match = models.ForeignKey(Match, on_delete=models.CASCADE, related_name='comments')
-    sender = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='sent_comments')  # Changed from User to Profile
-    content = models.TextField()
-    timestamp = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return f"Comment from {self.sender.username} on {self.match}"
-
 class ShownProfile(models.Model):
     profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='shown_profiles_records')  # Changed from user to profile
     shown_profile = models.ForeignKey(Profile, on_delete=models.CASCADE, related_name='shown_to_profiles')  # Changed from User to Profile and related_name
