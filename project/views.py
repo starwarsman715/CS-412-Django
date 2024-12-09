@@ -1,14 +1,12 @@
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View  # Added View
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.db.models import Q
-from django.forms import inlineformset_factory
 from django.db import transaction
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import login
-from django.http import JsonResponse
 
 from .models import (
     Profile, 
@@ -253,10 +251,11 @@ class SwipeView(LoginRequiredMixin, View):
         # Get the ID of the last viewed profile from the session
         last_viewed_id = request.session.get('last_viewed_profile_id', 0)
         
-        # Get profiles that have been matched with current user
+        # Get profiles that have COMPLETED matches with current user (accepted or both swiped)
         matched_profiles = Match.objects.filter(
-            Q(sender=current_profile) |
-            Q(receiver=current_profile)
+            (Q(sender=current_profile) & Q(status='accepted')) |  # Matches I've accepted
+            (Q(receiver=current_profile) & Q(status='accepted')) |  # Matches others accepted with me
+            (Q(sender=current_profile) & Q(status='pending'))  # Profiles I've already swiped right on
         ).values_list('sender', 'receiver')
         
         # Flatten and combine sender and receiver IDs
@@ -271,7 +270,6 @@ class SwipeView(LoginRequiredMixin, View):
         ).exclude(
             id=current_profile.id
         ).filter(
-            profile_genres__genre__in=current_profile.profile_genres.values('genre'),
             id__gt=last_viewed_id
         ).order_by('id')
 
@@ -281,8 +279,6 @@ class SwipeView(LoginRequiredMixin, View):
                 id__in=matched_ids
             ).exclude(
                 id=current_profile.id
-            ).filter(
-                profile_genres__genre__in=current_profile.profile_genres.values('genre')
             ).order_by('id')
             # Reset last viewed ID
             last_viewed_id = 0
