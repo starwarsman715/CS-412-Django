@@ -1,61 +1,67 @@
-<!-- project/templates/project/profile_list.html -->
+
+<!-- Profile List template -->
 {% extends 'project/base.html' %}
 {% block title %}Profile List{% endblock %}
 {% block content %}
+<div class="list-container">
+    <div class="section-header">
+        <h2 class="section-title">List of Profiles</h2>
+        {% if not user.is_authenticated %}
+            <a href="{% url 'project:add_profile' %}" class="btn btn-primary">Create New Profile</a>
+        {% endif %}
+    </div>
 
-<div class="profile-list">
-    <h2>List of Profiles</h2>
-
-    {% if not user.is_authenticated %}
-        <a href="{% url 'project:add_profile' %}" class="btn btn-success mb-3">Create New Profile</a>
-    {% endif %}
-
-    <table>
-        <thead>
-            <tr>
-                <th>Username</th>
-                <th>Email</th>
-                <th>Preferred Genres</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for profile in profiles %}
+    <div class="table-container">
+        <table class="content-table">
+            <thead>
                 <tr>
-                    <td><a href="{% url 'project:profile_detail' pk=profile.id %}">{{ profile.username }}</a></td>
-                    <td>{{ profile.email }}</td>
-                    <td>
-                        {% for profile_genre in profile.profile_genres.all %}
-                            {{ profile_genre.genre.name }}{% if not forloop.last %}, {% endif %}
-                        {% empty %}
-                            No preferred genres
-                        {% endfor %}
-                    </td>
+                    <th>Username</th>
+                    <th>Email</th>
+                    <th>Preferred Genres</th>
                 </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="3">No profiles found.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                {% for profile in profiles %}
+                    <tr>
+                        <td>
+                            <a href="{% url 'project:profile_detail' pk=profile.id %}" class="item-link">
+                                {{ profile.username }}
+                            </a>
+                        </td>
+                        <td>{{ profile.email }}</td>
+                        <td>
+                            {% for profile_genre in profile.profile_genres.all %}
+                                {{ profile_genre.genre.name }}{% if not forloop.last %}, {% endif %}
+                            {% empty %}
+                                <span class="empty-message">No preferred genres</span>
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% empty %}
+                    <tr>
+                        <td colspan="3" class="empty-message">No profiles found.</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 
     {% if is_paginated %}
         <div class="pagination">
             {% if page_obj.has_previous %}
-                <a href="?page=1">&laquo; first</a>
-                <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                <a href="?page=1" class="page-link">« first</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
             {% endif %}
-
-            <span class="current">
+            
+            <span class="page-current">
                 Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
             </span>
-
+            
             {% if page_obj.has_next %}
-                <a href="?page={{ page_obj.next_page_number }}">next</a>
-                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                <a href="?page={{ page_obj.next_page_number }}" class="page-link">next</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="page-link">last »</a>
             {% endif %}
         </div>
     {% endif %}
 </div>
-
 {% endblock %}

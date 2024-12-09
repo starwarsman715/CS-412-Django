@@ -1,31 +1,55 @@
-<!-- project/templates/project/matches_list.html -->
+
+<!-- Matches List template -->
 {% extends 'project/base.html' %}
 {% block title %}Your Matches{% endblock %}
-
 {% block content %}
-<h2>Your Matches</h2>
+<div class="matches-container">
+    <h2 class="section-title">Your Matches</h2>
 
-{% if matches %}
-    <div class="matches-list">
-        {% for match in matches %}
-            <div class="match-card">
+    {% if matches %}
+        <div class="matches-grid">
+            {% for match in matches %}
                 {% if match.sender == user.profile %}
                     {% with profile=match.receiver %}
-                        <h3>{{ profile.username }}</h3>
-                        <p>{{ profile.bio }}</p>
-                        <a href="{% url 'project:profile_detail' pk=profile.pk %}" class="btn-view">View Profile</a>
+                        <div class="match-card">
+                            <div class="card-header">
+                                <h3 class="match-name">{{ profile.username }}</h3>
+                            </div>
+                            
+                            <div class="card-body">
+                                <p class="match-bio">{{ profile.bio }}</p>
+                            </div>
+
+                            <div class="card-footer">
+                                <a href="{% url 'project:profile_detail' pk=profile.pk %}" 
+                                   class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
                     {% endwith %}
                 {% else %}
                     {% with profile=match.sender %}
-                        <h3>{{ profile.username }}</h3>
-                        <p>{{ profile.bio }}</p>
-                        <a href="{% url 'project:profile_detail' pk=profile.pk %}" class="btn-view">View Profile</a>
+                        <div class="match-card">
+                            <div class="card-header">
+                                <h3 class="match-name">{{ profile.username }}</h3>
+                            </div>
+                            
+                            <div class="card-body">
+                                <p class="match-bio">{{ profile.bio }}</p>
+                            </div>
+
+                            <div class="card-footer">
+                                <a href="{% url 'project:profile_detail' pk=profile.pk %}" 
+                                   class="btn btn-primary">View Profile</a>
+                            </div>
+                        </div>
                     {% endwith %}
                 {% endif %}
-            </div>
-        {% endfor %}
-    </div>
-{% else %}
-    <p>No matches yet! Keep swiping to find your musical match!</p>
-{% endif %}
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="empty-state">
+            <p class="empty-message">No matches yet! Keep swiping to find your musical match!</p>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}

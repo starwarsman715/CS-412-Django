@@ -1,51 +1,60 @@
+<!-- 
+  Base template for the Groovr application
+  Provides common layout elements and navigation
+-->
 {% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Groovr</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Groovr - {% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
-    <header>
-        <h1>Music Dating App</h1>
-        <div class="auth-status">
+    <!-- Main navigation and header -->
+    <header class="app-header">
+        <h1 class="app-title">Groovr</h1>
+        
+        <!-- Authentication status and actions -->
+        <div class="auth-container">
             {% if user.is_authenticated %}
-                <p>Currently logged in as: {{ user.username }}
-                    <form method="post" action="{% url 'project:logout' %}" class="logout-form">
-                        {% csrf_token %}
-                        <button type="submit" class="logout-button">Logout</button>
-                    </form>
+                <p class="auth-status">
+                    Welcome, {{ user.username }}
+                    <a href="{% url 'project:logout' %}" class="btn btn-secondary">Logout</a>
                 </p>
             {% else %}
-                <p>Not currently logged in 
-                    <a href="{% url 'project:login' %}" class="login-link">Login</a> or
-                    <a href="{% url 'project:add_profile' %}" class="register-link">Register</a>
+                <p class="auth-status">
+                    <a href="{% url 'project:login' %}" class="btn btn-primary">Login</a>
+                    <a href="{% url 'project:add_profile' %}" class="btn btn-secondary">Register</a>
                 </p>
             {% endif %}
         </div>
-        <nav>
-            <ul class="nav-links">
-                <li><a href="{% url 'project:home' %}">Home</a></li>
-                <li><a href="{% url 'project:profile_list' %}">View Profiles</a></li>
-                <li><a href="{% url 'project:song_list' %}">View Songs</a></li> 
-                {% if user.is_authenticated %}   
-                    <li><a href="{% url 'project:profile_detail' pk=user.profile.pk %}">My Profile</a></li>
-                    <li><a href="{% url 'project:swipe' %}">Swipe</a></li>
-                    <li><a href="{% url 'project:matches_list' %}">My Matches</a></li>
+
+        <!-- Main navigation menu -->
+        <nav class="main-nav">
+            <ul class="nav-list">
+                <li><a href="{% url 'project:home' %}" class="nav-link">Home</a></li>
+                <li><a href="{% url 'project:profile_list' %}" class="nav-link">Profiles</a></li>
+                <li><a href="{% url 'project:song_list' %}" class="nav-link">Songs</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'project:profile_detail' pk=user.profile.pk %}" class="nav-link">My Profile</a></li>
+                    <li><a href="{% url 'project:swipe' %}" class="nav-link">Swipe</a></li>
+                    <li><a href="{% url 'project:matches_list' %}" class="nav-link">My Matches</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
 
-    <main class="content">
-        {% block content %}
-
-        {% endblock %}
+    <!-- Main content area -->
+    <main class="main-content">
+        {% block content %}{% endblock %}
     </main>
 
-    <footer>
-        <p>&copy; 2024 Music Dating App</p>
+    <!-- Footer -->
+    <footer class="app-footer">
+        <p>&copy; 2024 Groovr - Connect through Music</p>
     </footer>
 </body>
 </html>

@@ -1,68 +1,85 @@
-<!-- project/templates/project/song_list.html -->
+<!-- Song List template -->
 {% extends 'project/base.html' %}
 {% block title %}Song List{% endblock %}
 {% block content %}
+<div class="list-container">
+    <!-- Search section -->
+    <div class="search-section">
+        <h2 class="section-title">Search Songs</h2>
+        <form method="get" class="search-form">
+            {{ form.as_p }}
+            <div class="search-actions">
+                <button type="submit" class="btn btn-primary">Search</button>
+                <a href="{% url 'project:song_list' %}" class="btn btn-secondary">Reset</a>
+            </div>
+        </form>
+    </div>
 
-<div class="song-search">
-    <h2>Search Songs</h2>
-    <form method="get" class="search-form">
-        {{ form.as_p }}
-        <button type="submit">Search</button>
-        <a href="{% url 'project:song_list' %}" class="reset-button">Reset</a>
-    </form>
-</div>
-
-<div class="song-list">
-    <h2>List of Songs {% if request.GET %}(Filtered Results){% endif %}</h2>
-
-    <a href="{% url 'project:add_song' %}" class="btn btn-success mb-3">Add New Song</a>
-
-    <table>
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Artist</th>
-                <th>Genre</th>
-                <th>Release Year</th>
-                <th>Actions</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% for song in songs %}
-                <tr>
-                    <td><a href="{% url 'project:song_detail' pk=song.id %}">{{ song.title }}</a></td>
-                    <td>{{ song.artist }}</td>
-                    <td>{{ song.genre.name }}</td>
-                    <td>{{ song.release_year }}</td>
-                    <td>
-                        <a href="{{ song.youtube_url }}" target="_blank">Listen on YouTube</a>
-                    </td>
-                </tr>
-            {% empty %}
-                <tr>
-                    <td colspan="5">No songs found matching your criteria.</td>
-                </tr>
-            {% endfor %}
-        </tbody>
-    </table>
-
-    {% if is_paginated %}
-        <div class="pagination">
-            {% if page_obj.has_previous %}
-                <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page=1">&laquo; first</a>
-                <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}">previous</a>
-            {% endif %}
-
-            <span class="current">
-                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
-            </span>
-
-            {% if page_obj.has_next %}
-                <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}">next</a>
-                <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
-            {% endif %}
+    <!-- Song list section -->
+    <div class="content-section">
+        <div class="section-header">
+            <h2 class="section-title">
+                List of Songs 
+                {% if request.GET %}(Filtered Results){% endif %}
+            </h2>
+            <a href="{% url 'project:add_song' %}" class="btn btn-primary">Add New Song</a>
         </div>
-    {% endif %}
-</div>
 
+        <div class="table-container">
+            <table class="content-table">
+                <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Artist</th>
+                        <th>Genre</th>
+                        <th>Release Year</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for song in songs %}
+                        <tr>
+                            <td>
+                                <a href="{% url 'project:song_detail' pk=song.id %}" class="item-link">
+                                    {{ song.title }}
+                                </a>
+                            </td>
+                            <td>{{ song.artist }}</td>
+                            <td>{{ song.genre.name }}</td>
+                            <td>{{ song.release_year }}</td>
+                            <td>
+                                <a href="{{ song.youtube_url }}" class="btn btn-small" target="_blank">
+                                    Listen on YouTube
+                                </a>
+                            </td>
+                        </tr>
+                    {% empty %}
+                        <tr>
+                            <td colspan="5" class="empty-message">No songs found matching your criteria.</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Pagination -->
+        {% if is_paginated %}
+            <div class="pagination">
+                {% if page_obj.has_previous %}
+                    <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page=1" class="page-link">« first</a>
+                    <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.previous_page_number }}" class="page-link">previous</a>
+                {% endif %}
+                
+                <span class="page-current">
+                    Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                </span>
+                
+                {% if page_obj.has_next %}
+                    <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.next_page_number }}" class="page-link">next</a>
+                    <a href="?{% if request.GET.urlencode %}{{ request.GET.urlencode }}&{% endif %}page={{ page_obj.paginator.num_pages }}" class="page-link">last »</a>
+                {% endif %}
+            </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

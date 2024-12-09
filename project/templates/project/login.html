@@ -1,16 +1,19 @@
-<!-- project/templates/project/login.html -->
+<!-- Login template -->
 {% extends 'project/base.html' %}
 
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="login-form">
-    <h2>Login</h2>
-    <form method="post">
+<div class="auth-form-container">
+    <h2 class="form-title">Login to Groovr</h2>
+    <form method="post" class="auth-form">
         {% csrf_token %}
         {{ form.as_p }}
-        <input type="hidden" name="next" value="{% url 'project:profile_list' %}">
-        <button type="submit">Login</button>
+        <button type="submit" class="btn btn-primary">Login</button>
     </form>
+    <p class="form-footer">
+        Don't have an account? 
+        <a href="{% url 'project:add_profile' %}" class="link">Register here</a>
+    </p>
 </div>
 {% endblock %}

@@ -1,26 +1,37 @@
+<!-- Song Detail template -->
 {% extends 'project/base.html' %}
 {% block title %}{{ song.title }} by {{ song.artist }}{% endblock %}
 {% block content %}
+<div class="detail-container">
+    <div class="song-detail">
+        <h2 class="detail-title">{{ song.title }}</h2>
+        
+        <div class="detail-info">
+            <p><strong>Artist:</strong> {{ song.artist }}</p>
+            <p><strong>Genre:</strong> {{ song.genre.name }}</p>
+            <p><strong>Release Year:</strong> {{ song.release_year }}</p>
+            <p>
+                <strong>Listen on Youtube:</strong>
+                <a href="{{ song.youtube_url }}" class="external-link" target="_blank">Click Here</a>
+            </p>
+        </div>
 
-<h2>{{ song.title }}</h2>
+        <div class="favorites-section">
+            <h3 class="section-title">Profiles Who Favorited This Song:</h3>
+            <ul class="favorites-list">
+                {% for profile_song in favorite_users %}
+                    <li>
+                        <a href="{% url 'project:profile_detail' pk=profile_song.profile.id %}" class="profile-link">
+                            {{ profile_song.profile.username }}
+                        </a>
+                    </li>
+                {% empty %}
+                    <li class="empty-message">No profiles have favorited this song yet.</li>
+                {% endfor %}
+            </ul>
+        </div>
 
-<p><strong>Artist:</strong> {{ song.artist }}</p>
-<p><strong>Genre:</strong> {{ song.genre.name }}</p>
-<p><strong>Release Year:</strong> {{ song.release_year }}</p>
-<p><strong>Listen on Youtube:</strong> <a href="{{ song.youtube_url }}" target="_blank">Click Here</a></p>
-
-<h3>Profiles Who Favorited This Song:</h3>  <!-- Changed from Users to Profiles -->
-<ul>
-    {% for profile_song in favorite_users %}  <!-- Changed from user_song -->
-        <li>
-            <a href="{% url 'project:profile_detail' pk=profile_song.profile.id %}">  <!-- Changed URL and references -->
-                {{ profile_song.profile.username }}
-            </a>
-        </li>
-    {% empty %}
-        <li>No profiles have favorited this song yet.</li>  <!-- Changed text -->
-    {% endfor %}
-</ul>
-
-<a href="{% url 'project:song_list' %}">Back to Song List</a>
+        <a href="{% url 'project:song_list' %}" class="btn btn-secondary">Back to Song List</a>
+    </div>
+</div>
 {% endblock %}

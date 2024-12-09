@@ -1,58 +1,62 @@
-<!-- project/templates/project/add_profile.html -->
+<!-- Add Profile template -->
 {% extends 'project/base.html' %}
 {% block title %}Create New Profile{% endblock %}
 {% block content %}
-
-<h2>Create New Profile</h2>
-
-<form method="post">
-    {% csrf_token %}
+<div class="form-container">
+    <h2 class="form-title">Create New Profile</h2>
     
-    <div class="user-creation-section">
-        <h3>Account Information</h3>
-        {{ user_form.as_p }}
-    </div>
+    <form method="post" class="content-form">
+        {% csrf_token %}
+        
+        <!-- Account Information -->
+        <section class="form-section">
+            <h3 class="section-title">Account Information</h3>
+            {{ user_form.as_p }}
+        </section>
 
-    <div class="profile-section">
-        <h3>Profile Information</h3>
-        {{ form.as_p }}
-    </div>
+        <!-- Profile Information -->
+        <section class="form-section">
+            <h3 class="section-title">Profile Information</h3>
+            {{ form.as_p }}
+        </section>
 
-    <div class="genres-section">
-        <h3>Favorite Genres (Select 2)</h3>
-        <p>Please select exactly two favorite genres.</p>
-        {{ genre_formset.management_form }}
-        {% for form in genre_formset %}
-            <div class="form-group">
-                {{ form.genre.label_tag }}
-                {{ form.genre }}
-                {% if form.genre.errors %}
-                    <div class="error">
-                        {{ form.genre.errors }}
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
+        <!-- Genre Selection -->
+        <section class="form-section">
+            <h3 class="section-title">Favorite Genres</h3>
+            <p class="form-help">Please select exactly two favorite genres.</p>
+            
+            {{ genre_formset.management_form }}
+            {% for form in genre_formset %}
+                <div class="form-group">
+                    {{ form.genre.label_tag }}
+                    {{ form.genre }}
+                    {% if form.genre.errors %}
+                        <div class="form-error">{{ form.genre.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </section>
 
-    <div class="songs-section">
-        <h3>Favorite Songs (Select 4)</h3>
-        <p>Please select exactly four favorite songs.</p>
-        {{ song_formset.management_form }}
-        {% for form in song_formset %}
-            <div class="form-group">
-                {{ form.song.label_tag }}
-                {{ form.song }}
-                {% if form.song.errors %}
-                    <div class="error">
-                        {{ form.song.errors }}
-                    </div>
-                {% endif %}
-            </div>
-        {% endfor %}
-    </div>
+        <!-- Song Selection -->
+        <section class="form-section">
+            <h3 class="section-title">Favorite Songs</h3>
+            <p class="form-help">Please select exactly four favorite songs.</p>
+            
+            {{ song_formset.management_form }}
+            {% for form in song_formset %}
+                <div class="form-group">
+                    {{ form.song.label_tag }}
+                    {{ form.song }}
+                    {% if form.song.errors %}
+                        <div class="form-error">{{ form.song.errors }}</div>
+                    {% endif %}
+                </div>
+            {% endfor %}
+        </section>
 
-    <button type="submit">Create Profile</button>
-</form>
-
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary">Create Profile</button>
+        </div>
+    </form>
+</div>
 {% endblock %}
