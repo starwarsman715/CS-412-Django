@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Music Dating App</title>
+    <title>Groovr</title>
     <link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
@@ -28,34 +28,19 @@
             <ul class="nav-links">
                 <li><a href="{% url 'project:home' %}">Home</a></li>
                 <li><a href="{% url 'project:profile_list' %}">View Profiles</a></li>
-                {% if user.is_authenticated %}
-                    <li><a href="{% url 'project:song_list' %}">View Songs</a></li>
-                    {% if user.profile %}
-                        <li><a href="{% url 'project:profile_detail' pk=user.profile.pk %}">My Profile</a></li>
-                        <!-- New links for matching functionality -->
-                        <li><a href="{% url 'project:swipe' %}">Find Matches</a></li>
-                        <li><a href="{% url 'project:matches_list' %}">My Matches</a></li>
-                    {% endif %}
-                    {% if user.is_staff %}
-                        <li><a href="{% url 'admin:index' %}">Admin</a></li>
-                    {% endif %}
+                <li><a href="{% url 'project:song_list' %}">View Songs</a></li> 
+                {% if user.is_authenticated %}   
+                    <li><a href="{% url 'project:profile_detail' pk=user.profile.pk %}">My Profile</a></li>
+                    <li><a href="{% url 'project:swipe' %}">Swipe</a></li>
+                    <li><a href="{% url 'project:matches_list' %}">My Matches</a></li>
                 {% endif %}
             </ul>
         </nav>
     </header>
 
     <main class="content">
-        {% if messages %}
-            <div class="messages">
-                {% for message in messages %}
-                    <div class="message {% if message.tags %}{{ message.tags }}{% endif %}">
-                        {{ message }}
-                    </div>
-                {% endfor %}
-            </div>
-        {% endif %}
-        
         {% block content %}
+
         {% endblock %}
     </main>
 

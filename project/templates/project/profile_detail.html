@@ -1,17 +1,17 @@
 {% extends 'project/base.html' %}
-{% block title %}{{ profile.username }}'s Profile{% endblock %}  <!-- Changed from user_profile -->
+{% block title %}{{ profile.username }}'s Profile{% endblock %}
 {% block content %}
 
 <div class="container mt-4">
-    <h2>{{ profile.username }}'s Profile</h2>  <!-- Changed from user_profile -->
+    <h2>{{ profile.username }}'s Profile</h2>
 
-    <p><strong>Email:</strong> {{ profile.email }}</p>  <!-- Changed from user_profile -->
-    <p><strong>Birth Date:</strong> {{ profile.birth_date }}</p>  <!-- Changed from user_profile -->
-    <p><strong>Bio:</strong> {{ profile.bio }}</p>  <!-- Changed from user_profile -->
+    <p><strong>Email:</strong> {{ profile.email }}</p>
+    <p><strong>Birth Date:</strong> {{ profile.birth_date }}</p>
+    <p><strong>Bio:</strong> {{ profile.bio }}</p>
 
     <h3>Preferred Genres</h3>
     <ul>
-        {% for profile_genre in preferred_genres %}  <!-- Changed from user_genre -->
+        {% for profile_genre in preferred_genres %}
             <li>{{ profile_genre.genre.name }}</li>
         {% empty %}
             <li>No preferred genres.</li>
@@ -20,7 +20,7 @@
 
     <h3>Favorite Songs</h3>
     <ul>
-        {% for profile_song in favorite_songs %}  <!-- Changed from user_song -->
+        {% for profile_song in favorite_songs %}
             <li>
                 <a href="{% url 'project:song_detail' pk=profile_song.song.id %}">
                     {{ profile_song.song.title }} by {{ profile_song.song.artist }}
@@ -31,8 +31,10 @@
         {% endfor %}
     </ul>
 
-    <a href="{% url 'project:update_profile' pk=profile.pk %}" class="btn btn-warning">Update Profile</a>  <!-- Changed URLs -->
-    <a href="{% url 'project:delete_profile' pk=profile.pk %}" class="btn btn-danger">Delete Profile</a>
+    {% if user.is_authenticated and user.profile == profile %}
+        <a href="{% url 'project:update_profile' pk=profile.pk %}" class="btn btn-warning">Update Profile</a>
+        <a href="{% url 'project:delete_profile' pk=profile.pk %}" class="btn btn-danger">Delete Profile</a>
+    {% endif %}
 </div>
 
 {% endblock %}

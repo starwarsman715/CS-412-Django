@@ -6,7 +6,7 @@
 <div class="profile-list">
     <h2>List of Profiles</h2>
 
-    {% if user.is_authenticated %}
+    {% if not user.is_authenticated %}
         <a href="{% url 'project:add_profile' %}" class="btn btn-success mb-3">Create New Profile</a>
     {% endif %}
 
