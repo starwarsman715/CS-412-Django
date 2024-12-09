@@ -512,3 +512,12 @@ class MatchesListView(LoginRequiredMixin, ListView):
             Q(sender=self.request.user.profile, status='accepted') |
             Q(receiver=self.request.user.profile, status='accepted')
         )
+        
+        
+'''
+Additioonal documentation of features not used in class:
+Fomsets: https://docs.djangoproject.com/en/5.1/topics/forms/formsets/
+
+Transactions: https://docs.djangoproject.com/en/5.1/topics/db/transactions/
+
+'''

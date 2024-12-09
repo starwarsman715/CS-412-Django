@@ -179,3 +179,11 @@ class SongSearchForm(forms.Form):
         max_value=2024,
         widget=forms.NumberInput(attrs={'placeholder': 'To '})
     )
+    
+        
+'''
+Additioonal documentation of features not used in class:
+Fomsets: https://docs.djangoproject.com/en/5.1/topics/forms/formsets/
+https://medium.com/@adandan01/django-inline-formsets-example-mybook-420cc4b6225d
+
+'''
