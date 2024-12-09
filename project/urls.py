@@ -36,7 +36,7 @@ urlpatterns = [
     path('profiles/<int:pk>/delete/', views.ProfileDeleteView.as_view(), name='delete_profile'),  
     
     path('login/', auth_views.LoginView.as_view(template_name='project/login.html'), name='login'),
-    path('logout/', auth_views.LogoutView.as_view(template_name='project/logged_out.html'), name='logout'),
+    path('logout/', auth_views.LogoutView.as_view(template_name='project/logged_out.html',next_page='project:home'),name='logout'),
     
     path('swipe/', views.SwipeView.as_view(), name='swipe'),
     path('match/<int:receiver_pk>/', views.CreateMatchView.as_view(), name='create_match'),
