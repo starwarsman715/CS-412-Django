@@ -39,9 +39,9 @@
         <nav class="main-nav">
             <ul class="nav-list">
                 <li><a href="{% url 'project:home' %}" class="nav-link">Home</a></li>
-                <li><a href="{% url 'project:profile_list' %}" class="nav-link">Profiles</a></li>
                 <li><a href="{% url 'project:song_list' %}" class="nav-link">Songs</a></li>
                 {% if user.is_authenticated %}
+                    <li><a href="{% url 'project:profile_list' %}" class="nav-link">Profiles</a></li>
                     <li><a href="{% url 'project:profile_detail' pk=user.profile.pk %}" class="nav-link">My Profile</a></li>
                     <li><a href="{% url 'project:swipe' %}" class="nav-link">Swipe</a></li>
                     <li><a href="{% url 'project:matches_list' %}" class="nav-link">My Matches</a></li>

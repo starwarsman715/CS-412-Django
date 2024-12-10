@@ -134,10 +134,10 @@ class ProfileDetailView(DetailView):
         context['favorite_songs'] = ProfileSong.objects.filter(profile=profile).select_related('song')
         return context
 
-class SongDetailView(DetailView):
+class SongDetailView(LoginRequiredMixin, DetailView):
     """
     Displays detailed information about a specific song.
-    
+
     Shows song information along with a list of users who
     have marked it as a favorite.
     """
@@ -148,21 +148,20 @@ class SongDetailView(DetailView):
     def get_context_data(self, **kwargs):
         """
         Enhances the context with related user information.
-        
+
         Adds a list of users who have favorited the song to the
         template context using database queries.
-        
         """
         context = super().get_context_data(**kwargs)
         song = self.object
         context['favorite_users'] = ProfileSong.objects.filter(song=song).select_related('profile')
         return context
 
-class SongCreateView(LoginRequiredMixin, CreateView):
+class SongCreateView(CreateView):
     """
     Handles the creation of new songs.
     
-    Requires authentication. Provides feedback messages for
+    Provides feedback messages for
     successful creation or validation errors.
     
     """
